@@ -4,7 +4,7 @@
 #v3-mosaic .s02-copy h2,#v3-mosaic .s02-copy p{color:#fff}
 
 /* One bounded S03 owner. Nothing is fixed to the page or reparented. */
-#b7.s03-section{height:100svh;position:relative;z-index:70;--s03-zoom:0;--s03-part:0;--s03-split:0;--s03-grid-opacity:1}
+#b7.s03-section{height:300svh;position:relative;z-index:70;--s03-zoom:0;--s03-part:0;--s03-split:0;--s03-grid-opacity:1}
 #b7.s03-enabled{height:400svh}
 .s03-stage{position:sticky;top:0;height:100svh;overflow:clip;background:transparent;isolation:isolate}
 .s03-stage::before{content:"";position:absolute;inset:0;background:#080909;opacity:calc(1 - var(--s03-split))}

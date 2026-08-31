@@ -12,7 +12,8 @@ S01/S03 protected; S02 loop revised; S04–S08 shortened and scroll-scrubbed; si
 
 docs/S02-S03-SEQUENCE.md is the historical approved checkpoint, not the current S02 source map.
 Other architecture notes are historical where they conflict with the above.
-Never revive cockpit, qualifier, pre-registration, rope climbing or step-ups from stale notes.
+Never revive cockpit, qualifier, rope climbing or step-ups from stale notes. Pre-registration may
+be restored only when its complete official destination is supplied.
 
 ## Preview and recovery
 

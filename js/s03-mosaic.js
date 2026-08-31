@@ -15,6 +15,13 @@
   section.classList.add('s03-enabled');
   document.body.classList.add('s03-enabled');
 
+  /* Open the center scrub source early. Waiting until the reader reaches the montage makes
+     the first seek compete with the transition and presents as a frozen or missing clip. */
+  sticker.preload = 'auto';
+  sticker.src = sticker.dataset.stickerSrc;
+  sticker.load();
+  tiles.forEach(v => { v.preload = 'auto'; v.src = v.dataset.loopSrc; });
+
   function loops() {
     const play = active && !document.hidden && !reduced.matches && zoom < 1;
     tiles.forEach(v => {
@@ -36,11 +43,6 @@
     raf = 0;
     const r = section.getBoundingClientRect();
     active = r.top < innerHeight && r.bottom > 0;
-    if (r.top < innerHeight * 2 && r.bottom > -innerHeight && !reduced.matches && !sticker.src) {
-      sticker.preload = 'auto';
-      sticker.src = sticker.dataset.stickerSrc;
-      sticker.load();
-    }
     const p = reduced.matches ? 0 : clamp(-r.top / Math.max(1, r.height - innerHeight));
     zoom = ease(clamp(p / .55));
     desired = END * clamp(p / .8);

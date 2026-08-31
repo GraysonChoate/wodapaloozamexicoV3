@@ -1,6 +1,6 @@
 # V3 handoff — shortened ending implemented
 
-2026-08-30. Latest user explicitly authorized this revision. Implemented and desktop-reviewed,
+2026-08-31. Latest user explicitly authorized this revision. Implemented and desktop-reviewed,
 but not yet visually approved by the user. No deployment or mobile redesign.
 
 ## Current sequence
@@ -16,11 +16,17 @@ but not yet visually approved by the user. No deployment or mobile redesign.
 - S06 one confetti shot.
 - S07 street/skyscraper rise → civic-building orbit.
 - S08 final monument/logo without recorded black tail.
-- FOOTER simple black resource/contact/Instagram footer. Shaped index removed.
+- FOOTER is one ordinary page-flow container after the final logo hold; S08 now uses a one-viewport
+  sticky in-flow stage rather than a fixed compositor. The cleaned supplied BACK cityscape is a
+  roughly 50%-opacity background layer inside that same black footer, behind the resource/contact/
+  Instagram area, with a SoCal-style social icon row. The asdeporte and
+  México marks are removed; the skyline and gradient are preserved.
 
 S04 onward uses scroll-controlled video in both directions. Stopped scroll MUST hold frames.
 Never change these to loops to conceal a seeking/delivery problem.
 S05 video, foreground matte and type use decoded source-frame time.
+Active scrub sources are prewarmed before their sections arrive; seeking is gated on decoded
+frames and stalled/error events release the seek lock.
 
 ## Where to inspect
 
@@ -35,6 +41,7 @@ Start python3 scripts/preview.py here. Byte-range delivery was verified (206).
 Separate Git destination: GraysonChoate/wodapaloozamexicoV3 main. Verify actual remote state.
 Previous approved checkpoint: def8661 / checkpoint-s01-s03-approved-2026-08-30.
 
-Next: owner reviews this revision before further footer styling/content changes.
-Ticket destination, real sponsors, final event facts need confirmation.
+Next: owner reloads the HTTP preview and checks the S08-to-footer handoff and bilingual controls at
+the actual page bottom. The implementation is complete locally; deployment is not authorized here.
+Ticket destination, Pre-Registro destination, real sponsors, and final event facts need confirmation.
 No full-site/mobile/reduced-motion/cross-browser certification.

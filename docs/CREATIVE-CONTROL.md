@@ -17,7 +17,15 @@
 - S04 onward scroll controls playback forward/backward. No independent looping.
   Foreground masks and copy follow decoded video time.
 - Shaped index removed. Simple useful footer now; further styling awaits user direction.
-- No qualifier/pre-registration or click gate. Optional ticket destination remains pending.
+- Footer is ordinary page flow after the final logo hold. The supplied BACK artwork is integrated
+  as the footer's own visual field, with only the asdeporte and México marks removed; the skyline,
+  gradient and proportions remain preserved.
+- No qualifier or click gate. Pre-Registro may remain available when its official destination is
+  supplied; the optional spectator-ticket destination remains pending.
+- Navigation menu includes the verified rulebook, questions/contact, Instagram and Asdeporte
+  destinations; qualifier remains excluded.
+- Editable page copy now has an EN/ES toggle. Source-embedded video text and the protected
+  community foreground treatment remain unchanged.
 - Preserve original assets and V1/V2. Desktop scope; no deployment.
 
 Current cut map: NEXT-SEQUENCE-BRIEF.md. Checks: MASTER-AUDIT.md.
