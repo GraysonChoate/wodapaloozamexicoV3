@@ -1546,7 +1546,15 @@
   #v3-mosaic{height:500svh !important;position:relative;z-index:12}
   #v3-mosaic .stage{position:sticky;top:0}
   #v3-mosaic .plate{position:absolute;inset:0}
-  #v3-mosaic .plate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.42))}
+  /* JUST BARELY. Two layers, not one heavier one. The vertical wash that was already here goes
+     down four points top and bottom — enough to seat the type, not enough to read as a filter on
+     the shot. Over it, a soft diagonal that only reaches the right side of the frame, where the
+     copy actually sits, and falls to nothing before two thirds across. So the footage the reader
+     is looking at stays footage, and the corner the words live in gets the support. Inherits the
+     plate's own clip-path, so the white sponsor band below is untouched. */
+  #v3-mosaic .plate::after{content:"";position:absolute;inset:0;background:
+    linear-gradient(252deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.13) 40%,rgba(0,0,0,0) 66%),
+    linear-gradient(180deg,rgba(0,0,0,.16),rgba(0,0,0,.46))}
   #v3-mosaic .plate video,#v3-mosaic .plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .v3-mosaic-label{position:absolute;z-index:2;left:clamp(22px,5vw,72px);bottom:clamp(28px,7vw,88px);max-width:760px;color:#f1eee6;font:900 clamp(34px,7vw,110px)/.86 Archivo,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.07em;text-transform:uppercase;text-shadow:0 2px 20px #000}
   .v3-ticker{height:82px;overflow:hidden;display:flex;align-items:center;background:#f2efe8;color:#090909;border-block:1px solid rgba(0,0,0,.18);font:900 clamp(15px,2vw,25px)/1 Archivo,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.04em;text-transform:uppercase}
@@ -1831,7 +1839,10 @@
       <img src="media/poster/s06-confetti.jpg" alt="Athletes celebrating under a burst of confetti">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <p class="ending-rail ending-rail-proof" data-lang-en="16 DIVISIONS · THIRD CITY · FIRST EDITION" data-lang-es="16 DIVISIONES · TERCERA CIUDAD · PRIMERA EDICIÓN">16 DIVISIONS · THIRD CITY · FIRST EDITION</p>
+    <div class="b11edge" aria-hidden="true"></div>
+    <!-- Stacked, not run on one line with interpuncts. At display size a trailing "·" at a line
+         break reads as a typo; three short lines read as a title card. Same words, same order. -->
+    <p class="ending-rail ending-rail-proof" data-lang-en="16 DIVISIONS&lt;br&gt;THIRD CITY&lt;br&gt;FIRST EDITION" data-lang-es="16 DIVISIONES&lt;br&gt;TERCERA CIUDAD&lt;br&gt;PRIMERA EDICIÓN">16 DIVISIONS<br>THIRD CITY<br>FIRST EDITION</p>
   </div>
 </section>
 
@@ -1844,7 +1855,7 @@
       </div>
       <video class="confetti-transition" muted loop playsinline preload="auto" aria-hidden="true"></video>
       <div class="b12edge" aria-hidden="true"></div>
-      <p class="ending-rail ending-rail-date" data-lang-en="MEXICO CITY · DECEMBER 4–6, 2026" data-lang-es="CIUDAD DE MÉXICO · 4–6 DE DICIEMBRE DE 2026">MEXICO CITY · DECEMBER 4–6, 2026</p>
+      <p class="ending-rail ending-rail-date" data-lang-en="MEXICO CITY&lt;br&gt;DECEMBER 4–6, 2026" data-lang-es="CIUDAD DE MÉXICO&lt;br&gt;4–6 DE DICIEMBRE DE 2026">MEXICO CITY<br>DECEMBER 4–6, 2026</p>
   </div>
 </section>
 
@@ -2020,7 +2031,7 @@
     const v = b.querySelector('.plate video') || b.querySelector('video');
     if (!v) { console.warn('beat ' + b.id + ' declares data-src but has no video'); continue; }
     const plate = v.closest('.plate') || b.querySelector('.plate');
-    b._v = v; b._want = HEAD; b._seeking = false;
+    b._v = v; b._want = HEAD; b._seeking = false; b._seekStarted = 0; b._lastSeekAt = 0; b._pendingTarget = null;
     b._continuous = CONTINUOUS_IDS.has(b.id);
     b._range = b.dataset.scrubRange ? b.dataset.scrubRange.split(',').map(Number) : null;
     b._from  = b.dataset.scrubFrom ? +b.dataset.scrubFrom : 0;
@@ -2045,9 +2056,13 @@
       v.addEventListener('seeked', reveal, {once:true});
     };
 
-    v.addEventListener('seeked', () => { b._seeking = false; });
-    v.addEventListener('stalled', () => { b._seeking = false; });
-    v.addEventListener('error', () => { b._seeking = false; });
+    const releaseSeek = () => { b._seeking = false; b._seekStarted = 0; };
+    /* A rapid scroll can supersede a seek without emitting seeked. These recovery events are
+       part of the media lifecycle and must release the guard as well, or one interrupted
+       request can freeze the beat permanently on its last painted frame. */
+    ['seeked', 'waiting', 'stalled', 'abort', 'emptied', 'error'].forEach(type => {
+      v.addEventListener(type, releaseSeek);
+    });
 
     /* A beat may carry a SECOND scrubbed clip that replaces the first — Beat 12's full
        square. It gets the identical treatment: armed after load, primed so a frame exists
@@ -2074,7 +2089,7 @@
     /* force one seek so a frame actually decodes. At the top of the page the scrub loop
        never fires on its own — the playhead already equals its target — so without this
        the video element paints nothing and the poster hides a black rectangle. */
-    const prime = () => { b._seeking = true;
+    const prime = () => { b._seeking = true; b._seekStarted = performance.now();
       try { v.currentTime = Math.max(HEAD, b._from || 0); } catch(e){} };
     const begin = () => {
       armReveal();
@@ -2325,13 +2340,32 @@
          gets the small overlap added to its range so it is still moving while it fades out. */
       const ending = b.classList.contains('ending-beat');
       const lateTiming = !ending && (b.id === 'b11' || b.id === 'b12' || b.id === 'b13');
-      const travel = ending ? Math.max(1, b.id === 'b13' ? r.height : r.height - H) : lateTiming
+      /* AN ENDING STAGE IS FIXED AND FULL-BLEED, SO IT IS ON SCREEN FOR ITS WHOLE SECTION —
+         which means its scrub has to run over its whole section too. `r.height - H` finished
+         the clip one full viewport before the stage stopped painting, and the beat then sat
+         on its last decoded frame for that entire viewport. That is the freeze at every late
+         seam, and it measured as exactly 720px of held frame on b9, b10 and b12 at a 720px
+         viewport. Beat 11 is SHORTER than the viewport, so the same expression went negative
+         and clamped to Math.max(1, ...) — one pixel of travel for the whole confetti burst,
+         which is why that shot never moved at all rather than merely freezing at its end.
+         Beat 13 was already on the other branch, and Beat 13 was the only beat that never
+         froze. Do not reintroduce the viewport subtraction here for any reason. */
+      /* The lead is the CROSS-DISSOLVE, and it is ADDED to the travel rather than spent
+         ahead of it: the incoming clip is already running the moment it starts becoming
+         visible, so no beat is ever held on a still frame while it arrives. Beat 9 is exempt
+         — its entrance is authored by S03's matched sticker split, not by a dissolve. */
+      /* ONE DIAL. This length is both the dissolve and the clip's lead-in, and everything
+         downstream degrades cleanly from it: set the multiplier to 0 and every late seam
+         becomes a straight cut again (the branch below falls through to the hard on/off) with
+         the freeze fix still fully in place, because the freeze fix is `r.height`, not this. */
+      const dissolve = ending && b.id !== 'b9' ? H * .18 : 0;
+      const travel = ending ? Math.max(1, r.height + dissolve) : lateTiming
         ? Math.max(1, r.height + (b.id === 'b11' ? H * .18 : 0))
         : Math.max(1, r.height - H);
       /* Start the final clip a few pixels before the section boundary. That makes the cut
          happen while the city is still moving, instead of exposing a one-frame handoff gap. */
       const cutLead = H * .04;
-      let p = Math.min(1, Math.max(0, (!ending && b.id === 'b13' ? -r.top + cutLead : -r.top) / travel));
+      let p = Math.min(1, Math.max(0, (ending ? -r.top + dissolve : -r.top) / travel));
       /* Beat 2 begins inside the completed black punctuation.  Its stage is black and its
          car is masked by the word, so its true local position is safe to use immediately. */
       b.style.setProperty('--p', p.toFixed(4));
@@ -2377,7 +2411,25 @@
       /* Beat 2 owns its arrival through the turning type plane below. Generic section
          opacity would make it look as though a new frame were scrolling in from the bottom. */
       const lateFixed = b.id === 'b11' || b.id === 'b12' || b.id === 'b13';
-      const stageVisibility = ending ? (r.top <= 0 && r.bottom > 0 ? 1 : 0) : b.id === 'v3-mosaic' ? (r.bottom > 0 && r.top < H ? 1 : 0) : lateFixed
+      /* ONE LAYER DISSOLVES, THE OTHER STAYS SOLID. The ending stages are opaque, full-bleed
+         and stacked in ascending z-order, so the arriving beat rises from 0 to 1 ON TOP of
+         the outgoing one, which is still at full opacity and still advancing underneath it
+         until the instant it is completely covered. Nothing is crossfaded against nothing,
+         so there is no luminance dip to square-root away, and no black frame between two
+         shots. The outgoing stage then switches off at r.bottom <= 0, by which point the
+         incoming stage above it has already reached 1 and is carrying the frame.
+         Beat 9 keeps the hard on/off: the sticker split is its dissolve. */
+      const stageVisibility = ending
+        /* EASED, NOT LINEAR, AND THAT IS THE WHOLE DIFFERENCE. A scroll dissolve is scrubbable:
+           the reader can stop dead on any frame of it, and the frame they stop on at 50/50 is a
+           double exposure of two bright, busy shots. Cubic ease-in-out is three times steeper
+           at its midpoint than a straight ramp, so the seam crosses that zone in about a third
+           of the distance while still arriving and leaving softly enough that neither shot pops
+           on. Same lead, same travel — only the shape of the opacity changes. */
+        ? (r.bottom <= 0 ? 0
+          : dissolve ? ease(Math.min(1, Math.max(0, 1 - r.top / dissolve)))
+          : (r.top <= 0 ? 1 : 0))
+        : b.id === 'v3-mosaic' ? (r.bottom > 0 && r.top < H ? 1 : 0) : lateFixed
         ? (b.id === 'b11'
           ? (r.bottom > -H * .18 ? Math.min(1, Math.max(0, 1 + r.bottom / (H * .18))) : 0)
           : (r.top <= cutLead && r.bottom > cutLead ? (b.id === 'b12'
@@ -2400,10 +2452,26 @@
       if (b.id === 'b11' || b.id === 'b12') {
         const rail = b.querySelector('.ending-rail');
         if (rail) {
-          const arrive = ease(seg(p, 0.06, 0.22));
-          const depart = 1 - ease(seg(p, 0.82, 1));
-          rail.style.opacity = String(arrive * depart);
-          rail.style.transform = `translate3d(0, ${(1 - arrive) * 22}px, ${arrive * 40}px) scale(${(0.96 + arrive * 0.04).toFixed(3)})`;
+          /* FOUR THINGS, ALL OF THEM SCROLL. The old version moved this 22px and scaled it 4%,
+             which at caption size is indistinguishable from not moving at all.
+             1. WIPE. A soft sweep across the letterforms as the beat opens, so the words are
+                revealed by the scroll rather than switched on by it.
+             2. SETTLE. Tracking starts open and closes to the S02 block's own -.028em. A line
+                that tightens as it lands reads as type arriving; a line that just fades does
+                not. It opens back up on the way out, which is the same move reversed.
+             3. DRIFT. A continuous rise across the WHOLE beat, independent of arrive and
+                depart. This is the part that makes it move WITH the footage: the shot is
+                scrubbing under it the entire time, and the type is travelling against it
+                rather than sitting still on top of it.
+             4. FADE. Late, and only after the drift has already carried it up the frame. */
+          const arrive = ease(seg(p, 0.04, 0.30));
+          const depart = ease(seg(p, 0.74, 0.98));
+          const drift  = -(p * 96);                        /* travels the whole beat */
+          const land   = (1 - arrive) * 54;                /* and rises in on arrival */
+          rail.style.setProperty('--rail-wipe', `${(arrive * 100).toFixed(1)}%`);
+          rail.style.setProperty('--rail-track', `${(0.075 - arrive * 0.103 + depart * 0.06).toFixed(4)}em`);
+          rail.style.setProperty('--rail-y', `${(drift + land).toFixed(1)}px`);
+          rail.style.setProperty('--rail-o', (arrive * (1 - depart)).toFixed(4));
         }
       }
       if (b.id === 'b12') {
@@ -3039,6 +3107,16 @@
     metres.textContent = gp >= 1 ? 'FLOOR' : Math.round(2240 * (1 - gp)).toLocaleString('en-US');
     document.querySelector('.alt').classList.toggle('at-floor', gp >= 1);
     document.documentElement.style.setProperty('--alt', (1-gp).toFixed(3));
+    /* THE THIRD CLOCK, AND THE LAST ONE ON THIS SEAM. syncStageVisibility() decides whether a
+       stage is visibility:hidden, and it was reached ONLY from its own requestAnimationFrame
+       loop. Every --sv above is computed here, directly on scroll. So on any scroll where rAF
+       is starved — and this handoff starves it, with five ending clips preloaded and the scrub
+       loop issuing seeks — Beat 9's opacity went to 1 while its stage was still carrying
+       visibility:hidden from when it was 0. A hidden stage shows whatever is behind it, which
+       is black, and that is the black before the barbell that survived fixing the S03 clock.
+       Opacity and visibility are one decision; they have to be made in one tick. The rAF loop
+       below stays as the safety net for stages whose opacity moves without a scroll. */
+    syncStageVisibility();
   }
   const onScroll = () => frame();
   addEventListener('scroll', onScroll, {passive:true});
@@ -3086,8 +3164,7 @@
   let lastY = -1;
   function tick(){
     if (scrollY !== lastY){ lastY = scrollY; frame(); }
-
-    // seek on its own cadence — never queue a seek while one is in flight
+    // Seek only the visible stage, on a short cadence, and keep the newest target.
     for (const b of beats){
       const v = b._v;
       if (!v || RM) continue;
@@ -3098,20 +3175,21 @@
         continue;
       }
       if (!v.paused) v.pause();
-      if (b._seeking) continue;
-      /* HALF A FRAME AT 60fps, NOT A FRAME AND A QUARTER.
-         1/48 was fine while every beat advanced two or three frames per scroll step. Beat 10 is
-         dense enough that a step moves 0.72 of a frame — BELOW the old threshold — so no seek was
-         issued at all on half of every scroll, the clip sat frozen, then jumped when the error
-         finally accumulated past it. Measured: 45 frozen steps in 90, jitter 1.01, against 0 and
-         0.04 on Beat 8. That is the choppiness, and it is in the film's own scrub loop rather
-         than anything to do with the overlay. Every frame in these clips is a keyframe, so a seek
-         is cheap and there is no reason to hold one back. */
-      if (v.readyState >= 2 && v.duration && Math.abs(v.currentTime - b._want) > 1/120){
-        b._seeking = true; v.currentTime = b._want;
+      /* Nearby beats may be preloaded, but seeking all of them competes with the visible
+         transition frame and causes flashes/black gaps. */
+      if (parseFloat(b.style.getPropertyValue('--sv') || '0') <= 0.001) continue;
+      const now = performance.now();
+      if (v.readyState >= 2 && v.duration && Math.abs(v.currentTime - b._want) > 1/60) {
+        b._pendingTarget = b._want;
       }
-      /* redraw the ambient spill from the frame that is already decoded. 48x27 costs
-         nothing and CSS does the blur, so this is an upscale, not a real blur pass. */
+      const seekStuck = b._seeking && now - b._seekStarted > 260;
+      if (b._pendingTarget !== null && now - b._lastSeekAt > 48 && (!b._seeking || seekStuck)) {
+        const target = b._pendingTarget;
+        b._pendingTarget = null;
+        b._seeking = true;
+        b._seekStarted = b._lastSeekAt = now;
+        v.currentTime = target;
+      }
       if (b._amb && v.readyState >= 2) {
         try { b._amb.drawImage(v, 0, 0, b._ambC.width, b._ambC.height); } catch(e){}
       }

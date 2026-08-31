@@ -5,7 +5,13 @@
 body #b9.ending-beat{height:320svh}
 body.s03-enabled #b9.ending-beat{margin-top:-160svh}
 body #b10.ending-beat{height:170svh;margin-top:0}
-body #b11.ending-beat{height:90svh;margin-top:0}
+/* The celebration is the payoff of the whole film and was the shortest beat in the ending —
+   shorter even than the logo card, and shorter than one viewport, which is what collapsed its
+   scrub to a single pixel. The clip is a real burst: bottles up, the pink-and-blue plume, then
+   the fall. Thirty usable frames is all the source has (b11_face.mp4 is 41 frames end to end),
+   so this height is set to the frames-per-pixel its neighbours already run at rather than to a
+   duration the footage cannot cover. */
+body #b11.ending-beat{height:120svh;margin-top:0}
 body #b12.ending-beat{height:140svh;margin-top:0}
 body #b13.ending-beat{height:100svh;margin-top:0}
 body .ending-beat>.stage{position:fixed;inset:0;width:100%;height:100svh;clip-path:none;transform:none;opacity:var(--sv,0);background:#000}
@@ -13,7 +19,15 @@ body .ending-beat>.stage{position:fixed;inset:0;width:100%;height:100svh;clip-pa
    own section, but return the stage to document flow so the footer follows normally.
    A fixed stage here was the reason the footer could be painted underneath or appear
    to drop in after the logo. */
-body #b13.ending-beat>.stage{position:sticky;top:0;inset:auto;z-index:30;opacity:var(--sv,0)}
+body #b13.ending-beat>.stage{position:sticky;top:0;inset:auto;z-index:47;opacity:var(--sv,0)}
+/* THE SEAM DISSOLVE DEPENDS ON THIS LADDER. Each arriving ending stage has to paint ABOVE the
+   one it is replacing, or it fades in underneath a solid layer and the seam stays a hard cut.
+   The order had drifted: #b9 was pushed to 40 by the !important below, #b10 sits at 40 in the
+   base sheet so it only won on document order, and #b13 was pinned under #b12 at 30 by this
+   rule's own specificity. Ascending and explicit: 40 · 41 · 45 · 46 · 47.
+   S08 stays above the footer's z-index 30 as before; it is sticky inside a section its own
+   height, so it has no sticky travel and scrolls away before the footer ever reaches it. */
+body #b10.ending-beat>.stage{z-index:41}
 body .ending-beat .plate{inset:0;width:100%;height:100%;clip-path:none;transform:none}
 body .ending-beat .plate video,body .ending-beat .plate img{object-fit:cover;object-position:center;transform:none;clip-path:none}
 body #b13.ending-beat .plate video,body #b13.ending-beat .plate img{object-fit:cover;transform:none}
@@ -21,8 +35,13 @@ body #b12.ending-beat .confetti-transition{position:absolute;z-index:2;inset:0;w
 body .ending-beat .stage::before,body .ending-beat .stage::after,
 body .ending-beat .plate::after,
 body .ending-beat .b9pre,body .ending-beat .b9wash,body .ending-beat .b9bars,
-body .ending-beat .b9edge,body .ending-beat .b9sweep,
-body .ending-beat .b13edge{display:none}
+body .ending-beat .b9edge,body .ending-beat .b9sweep{display:none}
+/* S08 KEEPS ITS PAPER EDGE. .b13edge is the original torn-paper treatment — city-edge-paper-03
+   masked to a vignette so the centre stays clear, with city-edge-paper-04 multiplied over it
+   for grain. It was swept up in the blanket display:none above when this layout was written,
+   which is the only reason it disappeared. It is authored against .stage's own box, so it
+   needs nothing from the old 280svh fixed geometry to sit correctly here. */
+body #b13.ending-beat .b13edge{display:block}
 /* Preserve the original matched foreground renderer, including its type styling. */
 /* S04 → S05 is a direct editorial cut. The old Beat 9 shutter/letterbox machinery was
    still winning on specificity and could leave black bars or a dead hold over the cut. */
@@ -51,9 +70,68 @@ body #b9.ending-beat .b9type{display:none!important}
    renderer has painted, JS adds b10-canvas-ready and the plate becomes the hidden decode source. */
 body #b10.ending-beat .plate{opacity:1}
 body #b10.ending-beat.b10-canvas-ready .plate{opacity:0}
-.ending-rail{position:absolute;z-index:4;margin:0;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.55);font:700 clamp(11px,1.1vw,16px)/1.2 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.15em;text-transform:uppercase;pointer-events:none;transition:opacity .2s ease}
-.ending-rail-proof{right:6vw;bottom:9vh;text-align:right}
-.ending-rail-date{left:6vw;bottom:9vh}
+/* NOT A CAPTION. A 19px line in the corner of a full-bleed shot is a caption on a photograph;
+   nobody reads it and it earns nothing. This is display type at title-card scale, and every
+   part of it is driven by scroll from frame() below — it rises, its tracking settles in, it
+   drifts against the footage the whole time it is on screen, and it opens back up as it goes.
+   Face and tracking still come from the S02 block, which is the reference for how this film
+   sets type. --rail-* are all written by the controller; the values here are only the at-rest
+   fallback for no-JS. Right edge stops well short of the WODAPALOOZA watermark burned into
+   both plates. */
+/* Sized so the LONGEST authored line still sets on one line. "DECEMBER 4–6, 2026" is ~11em in
+   Unbounded; at the old 82px ceiling that was 900px against a 760px box, so the year broke off
+   onto a fourth line and the card read as a mistake. 4.4vw against a 60vw box clears it with
+   room, and the interior line breaks stay the ones written into the copy. */
+.ending-rail{position:absolute;z-index:4;margin:0;max-width:min(60vw,880px);color:#fff;
+  font:500 clamp(28px,4.4vw,68px)/1.02 WZA-Unbounded,Arial,sans-serif;
+  letter-spacing:var(--rail-track,-.028em);
+  text-transform:uppercase;
+  text-shadow:0 4px 34px rgba(0,0,0,.55),0 2px 10px rgba(0,0,0,.42);
+  opacity:var(--rail-o,1);
+  transform:translate3d(0,var(--rail-y,0px),0);
+  /* The line wipes on rather than simply fading — a soft sweep across the letterforms,
+     scroll-driven, so the words arrive with the shot instead of on top of it. */
+  -webkit-mask-image:linear-gradient(96deg,#000 0,#000 var(--rail-wipe,100%),transparent calc(var(--rail-wipe,100%) + 15%));
+  mask-image:linear-gradient(96deg,#000 0,#000 var(--rail-wipe,100%),transparent calc(var(--rail-wipe,100%) + 15%));
+  pointer-events:none}
+/* BOTH RAILS LEFT. The proof rail used to sit bottom-right, which is exactly where S06 and S07
+   both carry a WODAPALOOZA Mexico City watermark burned into the plate. At the old small mono
+   size that was merely tight; at this size the rail's tail ran directly under the badge and the
+   two marks read as one crowded block. Opposite corners bought nothing anyway — these rails are
+   on different beats, so a reader never sees the pair at once. One consistent corner for the
+   film's credit line, and the plate's own logo keeps the other to itself. */
+/* Set from the baseline of the block, not the top, so a two-line and a three-line card both
+   sit on the same line above the frame edge. */
+.ending-rail-proof{left:6vw;bottom:11vh;text-align:left}
+.ending-rail-date{left:6vw;bottom:11vh}
+@media(max-width:700px){
+  .ending-rail{max-width:84vw;font-size:clamp(26px,8.5vw,40px)}
+}
+/* THE SAME PAPER AS S08, ON THE TWO BEATS THAT CARRY THE TYPE. Identical recipe to .b13edge:
+   city-edge-paper-03 as the sheet, city-edge-paper-04 multiplied over it for grain, and the
+   radial mask that holds the CENTRE fully transparent out to 47% and only reaches solid at
+   78%. That mask is the whole reason this can go over live footage without breaking it — the
+   confetti burst and the city move both play in the clear middle; only the frame edge is
+   paper. Same two files S08 already loads, so it costs no extra download. */
+body #b11.ending-beat .b11edge,
+body #b12.ending-beat .b12edge{
+  position:absolute;inset:0;z-index:3;pointer-events:none;opacity:1;
+  background:url('../media/print/city-edge-paper-03.png') center/cover no-repeat;
+  -webkit-mask-image:radial-gradient(ellipse at center,transparent 47%,rgba(0,0,0,.12) 58%,#000 78%,#000 100%);
+  mask-image:radial-gradient(ellipse at center,transparent 47%,rgba(0,0,0,.12) 58%,#000 78%,#000 100%);
+}
+/* B12 already had the sheet and the corner but never the grain pass; this adds the layer it
+   was missing so it matches S08 exactly rather than approximately. */
+body #b11.ending-beat .b11edge::before,
+body #b12.ending-beat .b12edge::before{
+  content:"";position:absolute;inset:0;
+  background:url('../media/print/city-edge-paper-04.png') center/cover no-repeat;
+  opacity:.42;mix-blend-mode:multiply;
+}
+body #b11.ending-beat .b11edge::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 100% 100%,rgba(5,5,5,1) 0 22%,rgba(5,5,5,.82) 33%,transparent 47%);
+}
 /* The final logo stage must remain the visual owner until it releases. The footer can enter
    the document flow beneath it, but it must never paint over or cut into the held logo frame. */
 /* A footer is ordinary page flow: the final film frame ends, then this complete section begins.
@@ -80,6 +158,17 @@ body #action.event-footer::before{content:"";position:absolute;z-index:-1;inset:
   body #b10.ending-beat canvas,body #b10.ending-beat .b10line{display:none}
 }
 @media(max-width:700px){
-  body.s03-enabled #b9.ending-beat{margin-top:0}
+  /* THE OVERLAP IS NOT DECORATION — DO NOT ZERO IT AT ANY WIDTH. This block used to carry
+     `body.s03-enabled #b9.ending-beat{margin-top:0}`, and that one line was the black.
+     -160svh is what puts the barbell UNDERNEATH S03 before the sticker splits, so the split
+     opens onto a clip that is already running. Remove it and S04 does not begin until a full
+     viewport after the split has finished, so the halves part onto nothing, hold on nothing,
+     and the barbell cuts in late. Measured at a 1000px-tall viewport:
+       1440px wide (overlap kept):    B9 turns on 600px BEFORE the split completes -> barbell
+        680px wide (overlap zeroed):  B9 turns on 1000px AFTER  the split completes -> 1.00
+                                      viewport of black, every time, guaranteed by layout.
+     Nothing is authored to occupy that gap; there is nothing to see there but the ground.
+     A narrow preview pane is what made this look intermittent — it is not a race, it is a
+     breakpoint, and it fires the moment the window is under 700px. */
   body #action.event-footer{min-height:360px;padding-top:56px}
 }
