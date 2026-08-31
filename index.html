@@ -1538,7 +1538,10 @@
   #b0 .b0title video.is-ready{opacity:1}
   @media(prefers-reduced-motion:reduce){#b0 .b0title video{display:none}}
   /* S01 only: decorative footage sits outside layout, below the existing flag mask. */
-  #b0 .s01-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;opacity:.18;pointer-events:none}
+  /* S01 stays dark — that is the design. This is only the background plate coming up a step
+     so the floor and the crowd read behind the title instead of disappearing into the ground.
+     .18 -> .21. Nothing else in S01 is touched. */
+  #b0 .s01-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;opacity:.21;pointer-events:none}
   @media(prefers-reduced-motion:reduce){#b0 .s01-background-video{display:none}}
   .site-qualifier{display:none !important}
   .site-actions{border-left:0}
