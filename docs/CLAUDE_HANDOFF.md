@@ -1,26 +1,40 @@
-# V3 handoff — S02/S03 sequence
+# V3 handoff — shortened ending implemented
 
-2026-08-30. Work only in this local V3 folder, not the archived V1/V2 production sources.
-Read [S02-S03-SEQUENCE.md](S02-S03-SEQUENCE.md) for the current scoped checkpoint.
+2026-08-30. Latest user explicitly authorized this revision. Implemented and desktop-reviewed,
+but not yet visually approved by the user. No deployment or mobile redesign.
 
-Implemented and desktop-reviewed: eight-second S02 crowd/city loop, solid-white revealed copy,
-natural S02 scrolling, and S03 nine-cell mosaic with eight looping hoodie clips around one
-scroll-scrubbed sticker film. Center zooms to full frame and ends at 00:08:04, then matched
-still halves split into the existing fitness scene. Reverse scroll tested back to the mosaic.
-S01 footage, title and controls are protected and unchanged. S04+ contents/controllers are unchanged;
-the incoming fitness section is positioned beneath the S03 split.
+## Current sequence
 
-Ticket destination and actual Mexico partners need confirmation; date is sourced from project notes.
-No full-site or mobile sign-off. The rejected index/footer is not part of this completed pass.
-Grayson has now visually approved S01–S03. NEXT-SEQUENCE-BRIEF.md records the requested next
-sequence. This checkpoint turn authorizes docs/Git backup only. Wait for confirmation before
-implementing later footage/footer changes.
+- S01 protected moving flag lettering, dark fitness loop, date and optional ticket control.
+- S02 natural-flow looping clean crowd → WZA 39–46.129417s → crowd. Includes Zócalo,
+  excludes street/skyscraper. Additional Bellas Artes B-roll removed from active playback.
+  White MORE THAN THE COMPETITION copy/reveal and sponsor strip preserved.
+- S03 protected eight hoodie loops around one scroll-scrubbed sticker center; zoom to frame 244,
+  matching still split. Incoming S04 is now rolling barbell.
+- S04 rolling barbell only.
+- S05 original lateral crowd → focused athlete, original foreground-masked text.
+- S06 one confetti shot.
+- S07 street/skyscraper rise → civic-building orbit.
+- S08 final monument/logo without recorded black tail.
+- FOOTER simple black resource/contact/Instagram footer. Shaped index removed.
 
-Preview: http://127.0.0.1:4176/?review=s02-s03#top
-Start from this V3 directory with `python3 scripts/preview.py`. This local-only server supports
-HTTP byte ranges needed for reliable video seeking. Do not replace it with the old plain Python
-SimpleHTTP server: it ignored Range requests and the center video failed to advance in Chrome.
-Checkpoint destination: separate GraysonChoate/wodapaloozamexicoV3 repository, branch main.
-This folder previously had no Git metadata; remote was reachable with no refs. Initial checkpoint
-includes runtime assets and handoff notes. Confirm commit/push status with Git and the remote,
-not prose. No public deployment is included.
+S04 onward uses scroll-controlled video in both directions. Stopped scroll MUST hold frames.
+Never change these to loops to conceal a seeking/delivery problem.
+S05 video, foreground matte and type use decoded source-frame time.
+
+## Where to inspect
+
+NEXT-SEQUENCE-BRIEF.md: exact cuts and implementation boundaries.
+MASTER-AUDIT.md: actual checks and remaining limits.
+css/short-ending.css: bounded ending geometry. index.html: later controller changes.
+scripts/encode-short-ending.zsh: reproducible new media, never overwrites originals.
+S01/S03 controllers, styles and source media unchanged.
+
+Preview: http://127.0.0.1:4176/?review=short-ending#top
+Start python3 scripts/preview.py here. Byte-range delivery was verified (206).
+Separate Git destination: GraysonChoate/wodapaloozamexicoV3 main. Verify actual remote state.
+Previous approved checkpoint: def8661 / checkpoint-s01-s03-approved-2026-08-30.
+
+Next: owner reviews this revision before further footer styling/content changes.
+Ticket destination, real sponsors, final event facts need confirmation.
+No full-site/mobile/reduced-motion/cross-browser certification.

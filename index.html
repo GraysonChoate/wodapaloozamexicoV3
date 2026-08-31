@@ -1556,6 +1556,7 @@
 </style>
 <link rel="stylesheet" href="css/s01-s02-presentation.css">
 <link rel="stylesheet" href="css/s02-s03-sequence.css">
+<link rel="stylesheet" href="css/short-ending.css">
 
 <!-- The return control's destination. An explicit anchor rather than a beat id, so
      it survives any beat being renamed, inserted or removed ahead of it. -->
@@ -1615,10 +1616,10 @@
 </div>
 
 <!-- V3 FITNESS-FIRST SPINE · MOSAIC / CROWD ENTRY -->
-<section class="beat" id="v3-mosaic" data-src="media/loop/s02-crowd-city-08s.mp4" data-join-in>
+<section class="beat" id="v3-mosaic" data-src="media/loop/s02-crowd-zocalo.mp4" data-join-in>
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/s02-crowd-city-08s.jpg" alt="Wodapalooza athletes and crowd gathered at the event">
+      <img src="media/poster/s02-crowd-zocalo.jpg" alt="Wodapalooza athletes and crowd gathered at the event">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="s02-copy">
@@ -1777,29 +1778,25 @@
   </div>
 </section>
 
-<!-- ─────────── BEAT 9 · EARN IT ─────────── -->
-<section class="beat" id="b9" data-src="media/scrub/b09_floorwork.mp4" data-scrub-from="1.95" data-scrub-warp="0.80,0.891" data-split-exit>
+<!-- S04 — Rolling barbell only; revealed by S03's matched sticker split. -->
+<section class="beat ending-beat" id="b9" data-src="media/scrub/s04-barbell.mp4" aria-label="S04 — Rolling barbell">
   <!-- Sibling of the stage, never inside it: the stage's own opacity is exactly the thing that
        is zero while the window is open, and its clip-path would crop this too. -->
   <div class="b9pre" aria-hidden="true"></div>
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/b09_floorwork_rope.jpg" alt="An athlete climbing the rope under the competition rig">
+      <img src="media/poster/s04-barbell.jpg" alt="A loaded barbell rolling on the competition floor">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b9wash"></div>
     <div class="b9bars" aria-hidden="true"></div>
     <div class="b9edge"></div>
     <div class="b9sweep" aria-hidden="true"></div>
-    <div class="b9type">
-      <h2>Es momento de<br>ganarte tu lugar.</h2>
-      <p>It&rsquo;s time to earn your place.</p>
-    </div>
   </div>
 </section>
 
 <!-- ─────────── BEAT 10 · WHAT THIS IS ─────────── -->
-<section class="beat" id="b10" data-src="media/scrub/b10_crowd_focus.mp4">
+<section class="beat ending-beat" id="b10" data-src="media/scrub/b10_crowd_focus.mp4" data-scrub-from="2.283333" aria-label="S05 — Community and focused athlete">
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b10_crowd_focus.jpg" alt="The crowd on their feet; the camera tracks past them and finds an athlete alone in his head">
@@ -1819,31 +1816,21 @@
 </section>
 
 <!-- ─────────── BEAT 11 · THE PROOF ─────────── -->
-<section class="beat" id="b11" data-src="media/scrub/b11_face.mp4">
+<section class="beat ending-beat" id="b11" data-src="media/scrub/s06-confetti.mp4" aria-label="S06 — Confetti celebration">
   <div class="stage">
-    <!-- TWO DIAGONALLY CONVERGING FIELDS. Beat 11 does not arrive, and it does not slide: it
-         closes over Beat 10 from opposite corners along the anti-diagonal, like a shutter cut on
-         the bias. Both fields are the same shot, running, so the scene is already playing before
-         either of them has finished arriving — the reader watches it happen rather than watching
-         it appear. Two triangles from opposite corners tile the frame exactly when they meet. -->
-    <div class="plate b11f b11f-a">
-      <img src="media/poster/b11_face.jpg" alt="Two athletes holding each other on the competition floor">
+    <!-- S06 — One confetti shot, directly cut and scroll-scrubbed in either direction. -->
+    <div class="plate">
+      <img src="media/poster/s06-confetti.jpg" alt="Athletes celebrating under a burst of confetti">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
-    </div>
-    <canvas class="b11f b11f-b" aria-hidden="true"></canvas>
-    <div class="b11stats">
-      <span data-count="16">Divisions (<b>16</b>)</span>
-      <span data-count="3">Cities ever (<b>3</b>)</span>
-      <span data-count="1">First edition (<b>1</b>)</span>
     </div>
   </div>
 </section>
 
 <!-- ─────────── BEAT 12 · THE CITY IS THE VENUE ─────────── -->
-<section class="beat" id="b12" data-src="media/scrub/b12_city_landmarks.mp4">
+<section class="beat ending-beat" id="b12" data-src="media/scrub/s07-city-close.mp4" aria-label="S07 — Skyscraper and civic building">
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/b12_city_landmarks.jpg" alt="Mexico City landmarks moving from the Torre Latinoamericana to Palacio de Bellas Artes">
+      <img src="media/poster/s07-city-close.jpg" alt="Mexico City landmarks moving from the Torre Latinoamericana to Palacio de Bellas Artes">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
       <div class="b12edge" aria-hidden="true"></div>
@@ -1851,7 +1838,7 @@
 </section>
 
 <!-- ─────────── BEAT 13 · CLOSE ─────────── -->
-<section class="beat" id="b13" data-src="media/scrub/b13_close.mp4" data-scrub-warp="0.62,0.89">
+<section class="beat ending-beat" id="b13" data-src="media/scrub/s08-logo-close.mp4" aria-label="S08 — Final Wodapalooza frame">
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b13_close.jpg" alt="The Monumento a la Revolución lit red, the Wodapalooza mark locking over it">
@@ -1861,36 +1848,17 @@
   </div>
 </section>
 
-<!-- ─────────── THE FINAL ACTION INDEX ─────────── -->
-<section id="action" aria-labelledby="action-title">
-  <div class="astage">
-    <div class="asignal"></div>
-    <div class="aindex">
-      <aside class="aidentity">
-        <img src="media/logo/mark-gradient.png" width="450" height="328" alt="Wodapalooza Mexico City">
-        <p>Ciudad de M&eacute;xico<br>04 &middot; 05 &middot; 06<br>Diciembre 2026</p>
-      </aside>
-      <div>
-        <p class="akicker">Choose your way in</p>
-        <h2 class="atitle" id="action-title">THE INDEX.</h2>
-        <nav class="aactions" aria-label="Acciones del evento">
-          <a class="aaction" href="https://share.hsforms.com/2HRn74_J4TeWtT7s28ZfA-g4zvdw" target="_blank" rel="noopener noreferrer">
-            <span class="anum">01</span><strong>Dudas y preguntas, aqu&iacute; te ayudamos</strong><i>Abrir &#8599;</i>
-          </a>
-          <a class="aaction" href="https://drive.google.com/file/d/1JGCQtsKqS8dYpa8M4LwoZeGekvwKnjdy/view" target="_blank" rel="noopener noreferrer">
-            <span class="anum">02</span><strong>Rulebook WZA CDMX</strong><i>Abrir &#8599;</i>
-          </a>
-        </nav>
-      </div>
-      <footer class="autility">
-        <span>Wodapalooza Mexico City</span>
-        <a href="https://www.instagram.com/wodapaloozamexico/" target="_blank" rel="noopener noreferrer">@wodapaloozamexico &#8599;</a>
-        <span class="aorg">Organizado por Asdeporte</span>
-      </footer>
-    </div>
-    <a class="areturn" href="#top">Volver al inicio &#8593;</a>
-  </div>
-</section>
+<!-- S09 — Simple resource footer. No pin, shield or registration promotion. -->
+<footer id="action" class="event-footer" aria-label="Event resources">
+  <img src="media/logo/mark-gradient.png" width="120" height="88" alt="Wodapalooza Mexico City">
+  <nav aria-label="Event resources and social links">
+    <a href="https://www.instagram.com/wodapaloozamexico/" target="_blank" rel="noopener noreferrer">Instagram &#8599;</a>
+    <a href="https://share.hsforms.com/2HRn74_J4TeWtT7s28ZfA-g4zvdw" target="_blank" rel="noopener noreferrer">Contacto y preguntas &#8599;</a>
+    <a href="https://drive.google.com/file/d/1JGCQtsKqS8dYpa8M4LwoZeGekvwKnjdy/view" target="_blank" rel="noopener noreferrer">Rulebook WZA CDMX &#8599;</a>
+    <a href="#top">Volver al inicio &#8593;</a>
+  </nav>
+  <p>Wodapalooza Mexico City &middot; Organizado por Asdeporte</p>
+</footer>
 
 <script>
 (() => {
@@ -1963,7 +1931,7 @@
   const ground = document.querySelector('[data-ground]');
   /* Primary film sources are scroll-held. The mosaic tiles and the ARE/YOU/READY panels are
      the two bounded loop exceptions; scene gates still pause them whenever their scene leaves. */
-  const CONTINUOUS_IDS = new Set(['v3-mosaic','b7','b9','b10','b11','b12','b13']);
+  const CONTINUOUS_IDS = new Set(['v3-mosaic','b7']);
   /* Where the DESCENT begins. Beat 0 is above the city and before the aircraft. */
   const descent = document.getElementById('b1');
   const actIdx  = document.getElementById('action');
@@ -2323,14 +2291,15 @@
          the normal sticky travel.  Using height - viewport made b12 reach its last frame
          almost a viewport before b13 arrived, which looked like a freeze at the cut. Beat 11
          gets the small overlap added to its range so it is still moving while it fades out. */
-      const lateTiming = b.id === 'b11' || b.id === 'b12' || b.id === 'b13';
-      const travel = lateTiming
+      const ending = b.classList.contains('ending-beat');
+      const lateTiming = !ending && (b.id === 'b11' || b.id === 'b12' || b.id === 'b13');
+      const travel = ending ? Math.max(1, r.height - (b.id === 'b13' ? H : 0)) : lateTiming
         ? Math.max(1, r.height + (b.id === 'b11' ? H * .18 : 0))
         : Math.max(1, r.height - H);
       /* Start the final clip a few pixels before the section boundary. That makes the cut
          happen while the city is still moving, instead of exposing a one-frame handoff gap. */
       const cutLead = H * .04;
-      let p = Math.min(1, Math.max(0, (b.id === 'b13' ? -r.top + cutLead : -r.top) / travel));
+      let p = Math.min(1, Math.max(0, (!ending && b.id === 'b13' ? -r.top + cutLead : -r.top) / travel));
       /* Beat 2 begins inside the completed black punctuation.  Its stage is black and its
          car is masked by the word, so its true local position is safe to use immediately. */
       b.style.setProperty('--p', p.toFixed(4));
@@ -2376,7 +2345,7 @@
       /* Beat 2 owns its arrival through the turning type plane below. Generic section
          opacity would make it look as though a new frame were scrolling in from the bottom. */
       const lateFixed = b.id === 'b11' || b.id === 'b12' || b.id === 'b13';
-      const stageVisibility = b.id === 'v3-mosaic' ? (r.bottom > 0 && r.top < H ? 1 : 0) : lateFixed
+      const stageVisibility = ending ? (r.top <= 0 && r.bottom > 0 ? 1 : 0) : b.id === 'v3-mosaic' ? (r.bottom > 0 && r.top < H ? 1 : 0) : lateFixed
         ? (b.id === 'b11'
           ? (r.bottom > -H * .18 ? Math.min(1, Math.max(0, 1 + r.bottom / (H * .18))) : 0)
           : (r.top <= cutLead && r.bottom > cutLead ? (b.id === 'b12'
@@ -2722,25 +2691,6 @@
       }
 
 
-      if (b.id === 'b13') {
-        /* The existing badge is the door into THE INDEX. The incoming page is already pinned
-           behind this closing plate; only its shield-shaped aperture changes with scroll. */
-        const A = document.getElementById('action'), AS = A && A.querySelector('.astage');
-        if (AS) {
-          const open = seg(p, 0.46, 1.00);
-          const shield = [[.499,0],[.847,.143],[.838,.232],[.996,.241],[1,.268],[.982,.543],[.918,.561],[.847,.610],[.783,.671],[.772,.762],[.752,.854],[.705,.884],[.596,.945],[.499,.997],[.403,.945],[.295,.884],[.248,.854],[.228,.762],[.217,.671],[.155,.610],[.086,.561],[.018,.543],[0,.268],[.004,.241],[.162,.232],[.153,.143]];
-          if (open <= 0) AS.style.clipPath = 'polygon(0 0,0 0,0 0)';
-          else if (open >= 1) AS.style.clipPath = 'none';
-          else {
-            const k = 1 + 1.86 * open;
-            AS.style.clipPath = 'polygon(' + shield.map(([x,y]) => `${(50+(x-.5)*34*k).toFixed(2)}% ${(60+(y-.5)*45*k).toFixed(2)}%`).join(',') + ')';
-          }
-          A.style.setProperty('--adoor', open.toFixed(4));
-        }
-        /* The final perimeter paper is intentionally static. It remains in place until the
-           Index aperture opens; the action section owns that disappearance. */
-      }
-
       if (b.id === 'b12') {
         /* The seam is a restrained crossfade. Both stages remain live briefly, so the city
            begins moving immediately and there is no slide, freeze, or geometric wipe. */
@@ -2812,11 +2762,12 @@
         if (BA && FG && b._v && !b._v._rvfc && 'requestVideoFrameCallback' in b._v) {
           b._v._rvfc = 1;
           const v = b._v;
-          const paint = (now, meta) => {
+          let decodedTime = v.currentTime;
+          const drawFrame = (mediaTime) => {
             const st = b.querySelector('.stage');
             const W = st.clientWidth, H = st.clientHeight;
             const dpr = Math.min(2, devicePixelRatio || 1);
-            if (BA.width !== Math.round(W * dpr)) {
+            if (BA.width !== Math.round(W * dpr) || BA.height !== Math.round(H * dpr)) {
               BA.width = FG.width = Math.round(W * dpr);
               BA.height = FG.height = Math.round(H * dpr);
             }
@@ -2832,7 +2783,11 @@
             const bc = BA._c || (BA._c = BA.getContext('2d', {alpha:false}));
             bc.clearRect(0, 0, cw, ch);
             try { bc.drawImage(v, dx, dy, dw, dh); } catch (e) {}
-            const k = Math.floor(meta.mediaTime * 60 + 1e-4) - 137;
+            const k = Math.floor(mediaTime * 60 + 1e-4) - 137;
+            // Type, video and foreground share the decoded frame, in either scroll direction.
+            const matteReady = B10MATTE.complete && B10MATTE.naturalWidth;
+            const typeAlpha = matteReady ? seg(mediaTime, 2.40, 2.70) * (1 - seg(mediaTime, 4.15, 4.55)) : 0;
+            b.style.setProperty('--b10t', typeAlpha.toFixed(4));
             const fc = FG._c || (FG._c = FG.getContext('2d', {alpha:true}));
             fc.clearRect(0, 0, cw, ch);
             if (k >= 0 && k <= 140 && B10MATTE.complete && B10MATTE.naturalWidth) {
@@ -2844,8 +2799,16 @@
             } else {
               b.style.setProperty('--fgv', 0);
             }
+          };
+          const paint = (now, meta) => {
+            decodedTime = meta.mediaTime;
+            drawFrame(decodedTime);
             v.requestVideoFrameCallback(paint);
           };
+          // A paused scroll frame still needs repainting if the viewport or matte becomes ready.
+          const repaint = () => { if (v.readyState >= 2 && !v.seeking) drawFrame(decodedTime); };
+          window.addEventListener('resize', repaint);
+          B10MATTE.addEventListener('load', repaint, {once:true});
           v.requestVideoFrameCallback(paint);
         }
         /* The words arrive with the lateral move, are crossed by the crowd, and are gone before
@@ -2864,7 +2827,6 @@
            he asked for, not a fault. What made it read as flicker was the clip freezing on half
            of every scroll step; with the scrub loop fixed the same swing reads as bodies passing
            in front of the words. It runs from the start of the lateral move through the athlete. */
-        b.style.setProperty('--b10t', (seg(p, 0.50, 0.555) * (1 - seg(p, 0.845, 0.872))).toFixed(3));
         /* THE CUT-OUT FOLLOWS THE SHOT, NOT THE SCROLL — and that distinction was the
            clunkiness. Driving it from `p` looked equivalent and is not: the film trims HEAD off
            the front of every clip and TAIL off the back, so the base video's time is
@@ -3047,7 +3009,6 @@
     // seek on its own cadence — never queue a seek while one is in flight
     for (const b of beats){
       const v = b._v;
-      const lateScrub = b.id === 'b11' || b.id === 'b12' || b.id === 'b13';
       if (!v || RM) continue;
       if (b._continuous) {
         const active = Number(b.style.getPropertyValue('--sv') || '0') > 0.01;
@@ -3056,7 +3017,7 @@
         continue;
       }
       if (!v.paused) v.pause();
-      if (b._seeking && !lateScrub) continue;
+      if (b._seeking) continue;
       /* HALF A FRAME AT 60fps, NOT A FRAME AND A QUARTER.
          1/48 was fine while every beat advanced two or three frames per scroll step. Beat 10 is
          dense enough that a step moves 0.72 of a frame — BELOW the old threshold — so no seek was
@@ -3066,7 +3027,7 @@
          than anything to do with the overlay. Every frame in these clips is a keyframe, so a seek
          is cheap and there is no reason to hold one back. */
       if (v.duration && Math.abs(v.currentTime - b._want) > 1/120){
-        b._seeking = !lateScrub; v.currentTime = b._want;
+        b._seeking = true; v.currentTime = b._want;
       }
       /* redraw the ambient spill from the frame that is already decoded. 48x27 costs
          nothing and CSS does the blur, so this is an upscale, not a real blur pass. */

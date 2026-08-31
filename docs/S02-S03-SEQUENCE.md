@@ -1,5 +1,9 @@
 # S02/S03 — review checkpoint, 2026-08-30
 
+> Historical approved checkpoint at def8661. S03 remains current; S02 media and the later
+> sequence were subsequently revised with user authorization. See NEXT-SEQUENCE-BRIEF.md
+> and MASTER-AUDIT.md for current details. Pending-work statements below apply to this old checkpoint.
+
 ## Scope and behavior
 
 Latest direct approval covers these two sections only. S01 remains protected. Later fitness,

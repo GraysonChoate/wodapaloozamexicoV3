@@ -1,55 +1,56 @@
-# Next sequence — requested, NOT implemented
+# Shortened sequence — implemented cut map
 
-2026-08-30. Grayson approved S01–S03 and requested a Git checkpoint and outline BEFORE any
-further footage/layout changes. Wait for confirmation to implement. This brief overrides
-conflicting older direction; it is not a claim about the current later-section playback.
+2026-08-30. Supersedes pending brief. User authorized implementation, including the final S02
+correction retaining Zócalo before restarting on crowd. Owner visual review pending.
 
-## Proposed reader order
+## Sources and cuts
 
-| Tag | Keep / destination | Remove / constraints |
+Times are source seconds, not enforced viewing duration. Originals untouched.
+scripts/encode-short-ending.zsh records exact commands.
+
+| Tag | Runtime / source | Current behavior |
 | --- | --- | --- |
-| S01–S03 | Approved flag, crowd/city, hoodie mosaic, sticker zoom and matched split. | No redesign or retiming. |
-| S04 — BARBELL | S03 split reveals ONLY rolling barbell, then exits promptly. | Remove step-ups, rope-climbing woman (Nike mark), surplus fitness montage; retain original source files. |
-| S05 — COMMUNITY | Lateral crowd movement with Claude's typography behind foreground people, then focused athlete. | Protect foreground/type/background layers; video, copy and matte share source time. |
-| S06 — CELEBRATION | Compact celebration, preferably the single confetti-pop shot. | Avoid retaining a long rewards sequence. Exact cut needs visual identification. |
-| S07/S08 — CLOSING | Upward camera move toward skyscraper → orbit around political/civic building → final watermarked frame. | Remove Zócalo gathering. Exact shots/timecodes/building identity not yet verified. |
-| FOOTER | Simple SoCal-like footer, useful resources/contact/social links. Further styling later. | Remove shaped index card entirely. No qualifier/pre-registration. Retain useful link destinations. |
+| S01 | Approved flag/title and fitness assets unchanged | Independent muted loops |
+| S02 | media/loop/s02-crowd-zocalo.mp4, 9.233333s | WP Crowd.mov 1.9–4.0s → assets/video/WZA_MX_LOGO.mp4 39–46.129417s → crowd |
+| S03 | media/scrub/s03-stickers-08s.mp4 unchanged | First 245 source frames; displayed endpoint frame 244 / 8.133333s and matching split |
+| S04 | media/scrub/s04-barbell.mp4, 2.516667s | b09_floorwork.mp4 frames 241–391 inclusive; rolling barbell only |
+| S05 | Existing media/scrub/b10_crowd_focus.mp4 | Start 2.283333s (frame 137), lateral crowd through focused athlete; source duration 4.983333s |
+| S06 | media/scrub/s06-confetti.mp4, 1.334667s | b11_face.mp4 frames 8–39 inclusive; confetti only |
+| S07 | media/scrub/s07-city-close.mp4, 1.710042s | b12_city_landmarks.mp4 from 0.625625s; skyscraper rise and building orbit |
+| S08 | media/scrub/s08-logo-close.mp4, 1.501500s | First approximately 1.5s of b13_close.mp4; ends on logo, not black |
+| FOOTER | #action.event-footer | Logo, Instagram, questions/contact, rulebook, back to top |
 
-## Playback contract
+S02 uses straight edited cuts/native looping. Clean crowd screen recording first; original WZA
+section includes Zócalo and stops at the exact street/skyscraper boundary. Former additional-city
+B-roll derivative remains archived but inactive.
 
-From S04 onward ALL video is scroll-controlled forward/backward, never independently looping.
-Stopped scroll holds its frame. Text/mattes follow the same source time. S01/S02 and S03 outer
-loops retain approved behavior; S03 center stays scrubbed. Shorten the journey, not just the clips:
-do not pad removed footage with long empty scroll holds.
+## Playback and geometry
 
-## After confirmation
+S02 remains natural-flow. S03 unchanged: four viewport heights, three heights of pinned travel;
+first 80% scrubs, final 20% splits. S04–S08 videos pause and seek with scroll; reverse retraces.
+New scrub derivatives are all-intra H.264 with no audio. Existing S05 all-intra source retained.
 
-1. Visually identify the exact barbell, crowd, focused-athlete, confetti and closing source windows.
-2. Preserve S03 endpoint split; connect its incoming image to the selected barbell window.
-3. Cut/reconnect later sections locally; keep occlusion typography synchronized.
-4. Replace index-card presentation with simple footer and retained useful destinations.
-5. Audit each seam in normal forward/reverse, fast and stopped scrolling: no mismatched stills,
-   black gaps, duplicate owners, stuck video or lingering copy. Recheck protected S01–S03.
-6. Report mobile/accessibility/browser verification limits honestly.
+Heights: S04 120svh, S05 170svh, S06 90svh, S07 140svh, S08 170svh.
+S04 retains S03's -160svh overlap; later margins zero. Ending beats have exclusive visible
+intervals. Final beat allows footer entrance over a held logo frame, not a padded black tail.
 
-## Lessons that must survive handoff
+S05 canvas/matte/type share requestVideoFrameCallback mediaTime. Matte starts at source frame137.
+Do not trim that source without adjusting its matte offset. Repaint supports paused resize/late
+matte load. Seeks are serialized; don't continually overwrite an active seek.
 
-- Screenshots alone cannot verify movement. Observe presented frames and currentTime over time.
-- The old preview server returned 200 to Range requests and Chrome seeks failed; the provided
-  server returns 206. Fix delivery rather than converting a scrubbed sequence into a loop.
-- Loops cannot guarantee an endpoint. S03 uses one scrubbed center, exact frame-244 end image,
-  and split gated on completed seek/image readiness.
-- One controller owns each section's media time/transforms. Avoid competing global effects.
-- No added copy on top of burned-in copy; no duplicate title treatments.
-- New SoCal-style elements use Unbounded/Inter; approved flag lettering stays unchanged.
-- Keep source MOVs intact and changes local. Do not introduce unrelated contingency systems.
-- Check the actual browser rather than trusting stale preview panes or old audit prose.
-- A V3 repository is not the same as a V3 branch inside V1.
-- Latest direct user decisions override old notes calling rejected scenes approved.
+## Recovery / boundaries
 
-## Technical source reference for future occlusion work
+Previous approved checkpoint: def8661, tag checkpoint-s01-s03-approved-2026-08-30.
+S01/S03 files and raw MOVs unchanged. Removed footage remains in archived originals.
+Changed index.html, added css/short-ending.css, new media and encoder, updated context.
+Use Git/remote state to verify backup, not an old chat claim.
 
-Legacy root: /Users/graysonchoate/Documents/Grounded Labs/wodapalooza-mexico.
-Read its SEQUENCE-INTEGRATION-REGISTER.md for b09/b10 source windows and matte pipeline, and
-reference/skills/kinetic-type.md before changing foreground masks. Inspect the actual renderer.
-These are historical technical evidence, not permission to revive obsolete creative directions.
+## Lessons
+
+- Observe movement/time, not only screenshots.
+- Scrub holding when stopped is correct. Failure to advance while scrolling is not.
+- HTTP Range must work. Never change playback contract to hide a delivery failure.
+- Looping cannot guarantee an endpoint. Keep S03 exact-frame split handling.
+- One media-time owner; no duplicate copy/title or competing global effects.
+- Latest direct decisions override legacy source comments.
+- Footer polish, mobile/reduced-motion/cross-browser validation remain separate.

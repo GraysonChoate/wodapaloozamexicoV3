@@ -1,18 +1,24 @@
-# V3 creative control — scoped checkpoint
+# V3 creative control — current direction
 
-2026-08-30: current direct user approvals take precedence over old cinematic experiments.
+2026-08-30. Latest direct decisions override historical approval language.
 
-- S01 approved moving flag lettering and dark fitness background are protected.
-- S01 date and optional tickets use light green, not SoCal orange.
-- S02 approved heading: MORE THAN THE COMPETITION, with supporting paragraph and reversible reveal.
-- SoCal font families verified: Unbounded and Inter. Do not globally replace existing flag typography.
-- White sponsor band frames the clean loop; sponsor brands are illustrative, not verified.
-- Latest approval supersedes the prior presentation-only restriction for S02/S03: S02 now has an eight-second crowd/city loop and natural scrolling. Its revealed copy is solid white.
-- S03 is an eight-loop hoodie mosaic surrounding one scroll-controlled sticker film. Pinning starts only when the complete grid reaches the viewport. Scroll zooms and scrubs the center through source 00:08:04; matching still halves split to reveal the existing fitness section. Reverse scroll retraces this sequence.
-- S01 is unchanged. S04 and later footage/controllers are preserved; only the incoming section position changed for the S03 handoff. Their shortening and the rejected index/footer replacement remain deferred.
+- Protect S01 moving flag lettering, dark fitness background, light-green date/ticket accents.
+- Preserve S02 MORE THAN THE COMPETITION and supporting paragraph, fully white after reveal.
+  New SoCal-style elements use Unbounded/Inter; do not replace flag lettering.
+- S02 flows naturally, without a multi-scroll pin. Loop starts with clean crowd, then original
+  WZA plaza drone, tug-of-war, street drone, hacky sack, toes-to-bar and Zócalo.
+  Cut BEFORE street-to-skyscraper. No added Bellas Artes B-roll.
+- White sponsor strip remains illustrative, not confirmed Mexico partnerships.
+- Protect S03 eight-loop hoodie mosaic, scroll-controlled sticker center, zoom and frame-244 split.
+- S04 rolling barbell ONLY. No step-ups, Nike rope woman or surplus lifting shots.
+- S05 lateral crowd → focused athlete, text behind foreground figures.
+- S06 one confetti celebration; no hug/rewards montage.
+- S07/S08 skyscraper rise → building orbit → final logo frame; no late Zócalo repeat.
+- S04 onward scroll controls playback forward/backward. No independent looping.
+  Foreground masks and copy follow decoded video time.
+- Shaped index removed. Simple useful footer now; further styling awaits user direction.
+- No qualifier/pre-registration or click gate. Optional ticket destination remains pending.
+- Preserve original assets and V1/V2. Desktop scope; no deployment.
 
-Current implementation, caveats and checks: [S02-S03-SEQUENCE.md](S02-S03-SEQUENCE.md).
-The earlier [S01-S02-PRESENTATION.md](S01-S02-PRESENTATION.md) is historical for S02 geometry/media.
-Grayson visually approved S01–S03 on August 30. Save this checkpoint before further changes.
-NEXT-SEQUENCE-BRIEF.md records the requested shorter later sequence and basic footer, awaiting
-confirmation to implement. Do not turn the scrubbed center into a loop to address seeking.
+Current cut map: NEXT-SEQUENCE-BRIEF.md. Checks: MASTER-AUDIT.md.
+The earlier S01–S03 checkpoint is approved; this shortened-ending revision awaits owner review.
