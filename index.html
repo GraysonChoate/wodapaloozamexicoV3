@@ -2,6 +2,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>WODAPALOOZA MEXICO CITY</title>
+<!-- Tab icon. Without these the browser probes /favicon.ico on every load and 404s. Both are
+     the same mark the header and footer already use, padded from 450x328 to a square with
+     transparent margin so the shield is not stretched. Declaring the icon explicitly is what
+     stops the .ico request; no separate legacy file is needed. -->
+<!-- Two versions, because the mark is a BLACK shield: on a dark tab bar it sinks into the
+     chrome and reads as nothing. The dark-scheme link swaps to the white mark, which is the
+     same lockup the brand already ships. Browsers without media support on icon links simply
+     take the first, which is the correct light-mode icon. -->
+<link rel="icon" type="image/png" sizes="32x32" href="media/logo/favicon-32.png">
+<link rel="icon" type="image/png" sizes="32x32" href="media/logo/favicon-32-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" sizes="180x180" href="media/logo/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;700&display=swap">
