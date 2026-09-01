@@ -28,11 +28,19 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
    because a larger size does not need as much of it, and max-width up so it still sets on three
    lines instead of spilling to four. Heading, position and reveal animation untouched. */
 #v3-mosaic .s02-copy p{max-width:820px;margin:24px 0 0 auto;font:500 clamp(15px,1.35vw,22px)/1.55 WZA-Inter,Arial,sans-serif;letter-spacing:0;text-shadow:0 1px 5px #000;opacity:var(--s02-body-opacity,1);transform:translateY(var(--s02-body-y,0px))}
-#v3-mosaic .s02-sponsors{position:absolute;z-index:3;inset:auto 0 0;height:var(--sponsor-height);background:#fff;color:#111;display:flex;flex-direction:column;justify-content:center;padding:18px 4% 16px}
-#v3-mosaic .s02-sponsors ul{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:center;gap:clamp(18px,4vw,70px);list-style:none;margin:0;padding:0}
-#v3-mosaic .s02-sponsors li{position:relative;min-width:0;overflow:hidden;height:clamp(70px,11svh,110px)}
-#v3-mosaic .s02-sponsors img{position:absolute;inset:0;display:block;width:100%;max-width:none;height:100%;object-fit:contain;transform:scale(1.65)}
-#v3-mosaic .s02-sponsors li:first-child img{transform:scale(1)}
+/* SPONSOR BAND — GEOMETRY TAKEN FROM socal.wodapalooza.com, NOT ESTIMATED.
+   Measured on the live SoCal site at a 1440x900 viewport: each logo occupies a 155x66 slot,
+   the gap between slots is 72px (so the pitch is 227px), the band section is 195px tall and
+   the ground is plain white. Our --sponsor-height already resolves to ~198px at that size, so
+   the video crop above it is untouched. The one thing SoCal does that a static grid cannot is
+   run continuously, which is what the marquee below adds. */
+#v3-mosaic .s02-sponsors{position:absolute;z-index:3;inset:auto 0 0;height:var(--sponsor-height);background:#fff;color:#111;display:flex;flex-direction:column;justify-content:center;padding:18px 0 16px;overflow:hidden}
+#v3-mosaic .s02-sponsor-track{display:flex;width:max-content;animation:s02sponsors 40s linear infinite;will-change:transform}
+#v3-mosaic .s02-sponsors ul{display:flex;align-items:center;gap:72px;list-style:none;margin:0;padding:0 36px}
+#v3-mosaic .s02-sponsors li{flex:none;display:grid;place-items:center;width:155px;height:66px}
+#v3-mosaic .s02-sponsors img{display:block;width:auto;height:auto;max-width:155px;max-height:66px;object-fit:contain}
+/* Two sets of four is exactly one half of the track, so this lands on an identical frame. */
+@keyframes s02sponsors{to{transform:translateX(-50%)}}
 #v3-mosaic .s02-sponsors p{margin:16px 0 0;text-align:center;font:500 9px/1.4 WZA-Inter,Arial,sans-serif;letter-spacing:.14em;color:#666}
 @media(max-width:700px){
   #b0 .s01-ticket-button{min-height:56px;font-size:13px}
@@ -40,11 +48,22 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
   #v3-mosaic .s02-copy{right:6%;width:88%}
   #v3-mosaic .s02-copy h2{font-size:clamp(22px,5.6vw,38px)}
   #v3-mosaic .s02-copy p{font-size:15px;margin-top:18px}
-  #v3-mosaic .s02-sponsors ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 24px}
- #v3-mosaic .s02-sponsors li{height:48px}
+  /* Scale the slot, do not squash it. The old rules here were for the 3-column grid this
+     replaced: grid-template-columns is now inert, but height:48px against an unchanged
+     155px width would have flattened every mark. Keep the SoCal ratio, just smaller, and
+     shorten the lap so the strip still reads as moving on a narrow screen. */
+  #v3-mosaic .s02-sponsors ul{gap:44px;padding:0 22px}
+  #v3-mosaic .s02-sponsors li{width:108px;height:46px}
+  #v3-mosaic .s02-sponsors img{max-width:108px;max-height:46px}
+  #v3-mosaic .s02-sponsor-track{animation-duration:28s}
   #v3-mosaic .s02-sponsors p{font-size:8px;letter-spacing:.07em;margin-top:12px}
 }
 @media(prefers-reduced-motion:reduce){
   #v3-mosaic .s02-copy h2,#v3-mosaic .s02-copy p{opacity:1;transform:none}
   #b0 .s01-ticket-button{transition:none}
+  /* Stop the strip rather than hide it — a reader who has asked for less motion should still
+     see every partner. Centred so the first set sits in frame instead of hard against the
+     left edge, and the duplicate sets are simply cropped away by the band's overflow. */
+  #v3-mosaic .s02-sponsor-track{animation:none;width:100%;justify-content:center}
+  #v3-mosaic .s02-sponsor-track ul[aria-hidden="true"]{display:none}
 }

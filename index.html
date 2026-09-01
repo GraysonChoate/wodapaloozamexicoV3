@@ -1645,16 +1645,40 @@
       <h2 data-lang-en="MORE THAN&lt;br&gt;THE COMPETITION" data-lang-es="MÁS QUE&lt;br&gt;LA COMPETENCIA">MORE THAN<br>THE COMPETITION</h2>
     <p data-lang-en="An international fitness festival enters a new chapter in Mexico City. Athletes, fans, and the fitness community come together to compete, connect, and celebrate the sport." data-lang-es="Un festival internacional de fitness entra en un nuevo capítulo en Ciudad de México. Atletas, aficionados y la comunidad del fitness se reúnen para competir, conectar y celebrar el deporte.">An international fitness festival enters a new chapter in Mexico City. Athletes, fans, and the fitness community come together to compete, connect, and celebrate the sport.</p>
     </div>
-    <aside class="s02-sponsors" aria-label="Illustrative sponsor layout, not confirmed Mexico partners">
-      <ul>
-        <li><img src="assets/sponsors/gymreapers.png" alt="Gymreapers" width="220" height="100"></li>
-        <li><img src="assets/sponsors/rogue.png" alt="Rogue" width="220" height="100"></li>
-        <li><img src="assets/sponsors/tyr.png" alt="TYR" width="220" height="100"></li>
-        <li><img src="assets/sponsors/flo.png" alt="FLO Elite" width="220" height="100"></li>
-        <li><img src="assets/sponsors/reign.png" alt="Reign" width="220" height="100"></li>
-        <li><img src="assets/sponsors/yeti.png" alt="YETI" width="220" height="100"></li>
-      </ul>
-      <p data-lang-en="ILLUSTRATIVE SPONSORS · MEXICO PARTNERS TO BE CONFIRMED" data-lang-es="PATROCINADORES ILUSTRATIVOS · SOCIOS EN MÉXICO POR CONFIRMAR">ILLUSTRATIVE SPONSORS · MEXICO PARTNERS TO BE CONFIRMED</p>
+    <aside class="s02-sponsors" aria-label="Confirmed Mexico City partners">
+      <!-- INFINITE MARQUEE, MATCHED TO SOCAL. The set is repeated FOUR times and the track
+           animates to translateX(-50%), which advances it by exactly two sets and lands on an
+           identical frame — so the wrap is invisible. Four rather than two because one set of
+           four marks is ~980px: with only two sets the track would run out of content before
+           the loop point on a wide screen and leave a bare stretch at the right edge. At four,
+           at least 1960px is always on or right of the left edge. Adding or removing a partner
+           needs no other change; only the lap time is worth revisiting. -->
+      <div class="s02-sponsor-track">
+        <ul>
+          <li><img src="assets/sponsors/mx-centrum.png" alt="Centrum"></li>
+          <li><img src="assets/sponsors/mx-mini.png" alt="MINI"></li>
+          <li><img src="assets/sponsors/mx-powerade.png" alt="Powerade"></li>
+          <li><img src="assets/sponsors/mx-sportsworld.png" alt="Sports World"></li>
+        </ul>
+        <ul aria-hidden="true">
+          <li><img src="assets/sponsors/mx-centrum.png" alt=""></li>
+          <li><img src="assets/sponsors/mx-mini.png" alt=""></li>
+          <li><img src="assets/sponsors/mx-powerade.png" alt=""></li>
+          <li><img src="assets/sponsors/mx-sportsworld.png" alt=""></li>
+        </ul>
+        <ul aria-hidden="true">
+          <li><img src="assets/sponsors/mx-centrum.png" alt=""></li>
+          <li><img src="assets/sponsors/mx-mini.png" alt=""></li>
+          <li><img src="assets/sponsors/mx-powerade.png" alt=""></li>
+          <li><img src="assets/sponsors/mx-sportsworld.png" alt=""></li>
+        </ul>
+        <ul aria-hidden="true">
+          <li><img src="assets/sponsors/mx-centrum.png" alt=""></li>
+          <li><img src="assets/sponsors/mx-mini.png" alt=""></li>
+          <li><img src="assets/sponsors/mx-powerade.png" alt=""></li>
+          <li><img src="assets/sponsors/mx-sportsworld.png" alt=""></li>
+        </ul>
+      </div>
     </aside>
   </div>
 </section>
