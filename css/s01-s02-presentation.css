@@ -35,7 +35,13 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
    the video crop above it is untouched. The one thing SoCal does that a static grid cannot is
    run continuously, which is what the marquee below adds. */
 #v3-mosaic .s02-sponsors{position:absolute;z-index:3;inset:auto 0 0;height:var(--sponsor-height);background:#fff;color:#111;display:flex;flex-direction:column;justify-content:center;padding:18px 0 16px;overflow:hidden}
-#v3-mosaic .s02-sponsor-track{display:flex;width:max-content;animation:s02sponsors 40s linear infinite;will-change:transform}
+/* 54s, not 40s. The lap time is not the speed — the speed is half the track over the
+   duration, and half the track is 2724px at six marks. 40s put it at 68px/s, which reads as
+   hurried for logos you are meant to be able to name. 54s is ~50px/s. Mobile is set to 36s in
+   the query below so it lands on the same 50px/s over its shorter 1824px half-track, which is
+   why the two numbers differ: matching the DURATION across breakpoints would make the phone
+   noticeably faster. Recalculate both if the number of partners changes. */
+#v3-mosaic .s02-sponsor-track{display:flex;width:max-content;animation:s02sponsors 54s linear infinite;will-change:transform}
 #v3-mosaic .s02-sponsors ul{display:flex;align-items:center;gap:72px;list-style:none;margin:0;padding:0 36px}
 #v3-mosaic .s02-sponsors li{flex:none;display:grid;place-items:center;width:155px;height:66px}
 #v3-mosaic .s02-sponsors img{display:block;width:auto;height:auto;max-width:155px;max-height:66px;object-fit:contain}
@@ -55,7 +61,7 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
   #v3-mosaic .s02-sponsors ul{gap:44px;padding:0 22px}
   #v3-mosaic .s02-sponsors li{width:108px;height:46px}
   #v3-mosaic .s02-sponsors img{max-width:108px;max-height:46px}
-  #v3-mosaic .s02-sponsor-track{animation-duration:28s}
+  #v3-mosaic .s02-sponsor-track{animation-duration:36s}
   #v3-mosaic .s02-sponsors p{font-size:8px;letter-spacing:.07em;margin-top:12px}
 }
 @media(prefers-reduced-motion:reduce){
