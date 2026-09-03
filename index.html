@@ -1,7 +1,24 @@
 <!DOCTYPE html>
+<html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WODAPALOOZA MEXICO CITY</title>
+<title data-lang-en="WODAPALOOZA MEXICO CITY" data-lang-es="WODAPALOOZA CIUDAD DE MÉXICO">WODAPALOOZA MEXICO CITY</title>
+<meta name="description" content="Wodapalooza arrives in Mexico City for the first time, December 4–6 2026 at Centro Ecuestre SEDENA. Three days of competition, fitness and community.">
+<!-- Social preview. Without og:* a shared link renders as a bare URL with no card; these tags
+     are not inferred from the page, they have to be declared. The URLs must be absolute — a
+     relative path resolves against the scraper, not this site, and silently yields no image. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wodapalooza Mexico City">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_MX">
+<meta property="og:url" content="https://wodapaloozamexico-v3.vercel.app/">
+<meta property="og:title" content="Wodapalooza Mexico City · December 4–6, 2026">
+<meta property="og:description" content="Wodapalooza arrives in Mexico City for the first time. Three days of competition, fitness and community at Centro Ecuestre SEDENA.">
+<meta property="og:image" content="https://wodapaloozamexico-v3.vercel.app/media/social/og-1200x630.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Monumento a la Revolución lit red with the Wodapalooza Mexico City mark locked over it">
+<meta name="twitter:card" content="summary_large_image">
 <!-- Tab icon. Without these the browser probes /favicon.ico on every load and 404s. Both are
      the same mark the header and footer already use, padded from 450x328 to a square with
      transparent margin so the shield is not stretched. Declaring the icon explicitly is what
@@ -1813,6 +1830,10 @@
 </section>
 
 <!-- ─────────── BEAT 8 · THE MESSAGE ─────────── -->
+<!-- RETIRED. Hidden by #b8.recovery-retired{display:none} at the top of this file, so nothing
+     below renders. It is kept only so the beat can be restored with its timing intact.
+     Note before reusing it: the SVG copy inside still reads "18 AL 26 DE AGOSTO", the 2026
+     qualifier window, which closed on 26 August 2026. Update that text before un-retiring. -->
 <section class="beat recovery-retired" id="b8" data-scrub-warp="0.60,0.71" data-join-in>
   <div class="stage">
     <div class="b8world">
@@ -3213,8 +3234,19 @@
     }
   };
   if (langToggle) {
+    /* Same key and same storage as js/lang.js, so the choice survives moving between the film
+       and the standalone pages. Without this a reader who picked Español on Compete and then
+       clicked Home landed back in English. sessionStorage, not localStorage: a language pick
+       lasts the visit. Both calls are wrapped because Safari in private mode throws on them,
+       and a toggle that throws would leave the page half-translated. */
+    const LANG_KEY = 'wza-lang';
     let language = 'en';
-    langToggle.addEventListener('click', () => { language = language === 'en' ? 'es' : 'en'; applyLanguage(language); });
+    try { if (sessionStorage.getItem(LANG_KEY) === 'es') language = 'es'; } catch (e) {}
+    langToggle.addEventListener('click', () => {
+      language = language === 'en' ? 'es' : 'en';
+      try { sessionStorage.setItem(LANG_KEY, language); } catch (e) {}
+      applyLanguage(language);
+    });
     applyLanguage(language);
   }
 

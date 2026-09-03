@@ -77,3 +77,13 @@ media/still/b04_car-handoff.jpg
 media/still/b09_lockout_f0.jpg
 scripts/encode-s02-s03.zsh
 scripts/encode-short-ending.zsh
+
+# Added by the September audit. Referenced only in docs/, never by index.html, css/ or js/ —
+# confirmed against a full request log of the live film, not just a filename grep. Kept in git
+# for provenance as AGENTS.md requires; simply not uploaded. 26.6 MB off the deploy.
+media/loop/s02-crowd-city-08s.mp4
+media/poster/s02-crowd-city-08s.jpg
+media/scrub/b09_floorwork.mp4
+media/scrub/b12_city_landmarks.mp4
+media/scrub/b13_close.mp4
+media/scrub/mosaic-crowd-wza.mp4
