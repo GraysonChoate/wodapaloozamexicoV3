@@ -79,26 +79,26 @@ body.wza-page{
    enough the same value. The overlay below is not decoration, it is what keeps that line
    readable.
 
-   .76 is not a guess. The overlay was swept from .90 to .54 and each step measured against the
+   .70 is not a guess. The overlay was swept from .90 to .54 and each step measured against the
    real composited backdrop, with the copy hidden so only the backdrop was photographed:
 
      .90  kicker 8.23:1   texture barely a tint, not worth having
      .82  kicker 7.32:1
-     .76  kicker 6.59:1   watercolour and both halftone corners read, block still dark  <-- here
-     .70  kicker 5.87:1
+     .76  kicker 6.59:1   watercolour and both halftone corners read, block still dark
+     .70  kicker 5.87:1   a step brighter on the client's note, still clear of AA  <-- here
      .62  kicker 4.91:1   green starts to overwhelm the block
      .54  kicker 4.15:1   FAILS AA
 
-   At .76 the white title measures 14.49:1 worst case. Anything lighter trades legibility for
-   very little extra texture, and .54 puts the kicker under the 4.5:1 floor outright. */
+   At .70 the white title measures 12.83:1 worst case. .62 is the last passing step and .54 puts
+   the kicker under the 4.5:1 floor outright, so there is one notch left above this if asked. */
 .page-head::before{ content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-  background:linear-gradient(rgba(9,9,9,.76),rgba(9,9,9,.82)),
+  background:linear-gradient(rgba(9,9,9,.70),rgba(9,9,9,.77)),
              url('../media/texture/wza-block-800x320.jpg') center/cover no-repeat }
 .page-head::after{ content:""; position:absolute; inset:auto 0 0; z-index:1; height:clamp(10px,1.4vh,16px);
   background:url('../media/texture/wza-band-1920x240.jpg') center/cover no-repeat }
 .page-foot{ position:relative; overflow:hidden }
 .page-foot::after{ content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-  background:linear-gradient(rgba(9,9,9,.76),rgba(9,9,9,.82)),
+  background:linear-gradient(rgba(9,9,9,.70),rgba(9,9,9,.77)),
              url('../media/texture/wza-block-800x320.jpg') center/cover no-repeat }
 .page-foot::before{ content:""; position:absolute; inset:0 0 auto; z-index:1; height:clamp(10px,1.4vh,16px);
   background:url('../media/texture/wza-band-1920x240.jpg') center/cover no-repeat }
