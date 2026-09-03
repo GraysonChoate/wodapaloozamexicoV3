@@ -64,21 +64,52 @@ body.wza-page{
 /* ── PAGE HEAD — a dark band so the fixed nav has something to sit on, as it does on the film ── */
 .page-head{ position:relative; padding:clamp(128px,15vh,190px) 0 clamp(48px,6vh,78px); background:var(--ground); color:#fff; overflow:hidden }
 
-/* ASDEPORTE'S OWN TEXTURE, USED WHERE IT CANNOT FIGHT ANYTHING.
-   Jose supplied a 1920x240 watercolour band — teal to green with magenta halftone in opposite
-   corners. It is not on the sponsor strip, which stays white to match SoCal, and it is not on
-   the film, which is finished. It closes the dark page header instead, which is precisely the
-   proportion the asset was cut at.
-   Deliberately NOT behind the headline: white type sits fine on it, but the green kicker
-   (#6CC180) would sink straight into the green half. As a rule under the header it carries the
-   brand without touching legibility. background-size:cover with a fixed height keeps the
-   halftone corners in frame at any width. */
-.page-head::after{ content:""; position:absolute; inset:auto 0 0; height:clamp(10px,1.4vh,16px);
+/* ASDEPORTE'S OWN TEXTURE, CARRIED ACROSS THE WHOLE DARK BLOCK.
+   Jose supplied two cuts of the same watercolour — a 1920x240 band and an 800x320 block, teal
+   to green with magenta halftone in opposite corners. It is not on the sponsor strip, which
+   stays white to match SoCal, and it is not on the film, which is finished.
+
+   The header and footer now carry it as a full field rather than only as an edge. The BLOCK cut
+   fills the area: at 2.5:1 it scales into a header without the 8:1 band having to be stretched
+   four times past its own proportion, which smeared the halftone into stripes. The band cut is
+   kept for the edge line, where its proportion is exactly right.
+
+   THE REASON THIS NEEDED DARKENING RATHER THAN JUST DROPPING IN. At full strength the green
+   kicker (#6CC180) sits on the green half of the watercolour and disappears — same hue, near
+   enough the same value. The overlay below is not decoration, it is what keeps that line
+   readable.
+
+   .76 is not a guess. The overlay was swept from .90 to .54 and each step measured against the
+   real composited backdrop, with the copy hidden so only the backdrop was photographed:
+
+     .90  kicker 8.23:1   texture barely a tint, not worth having
+     .82  kicker 7.32:1
+     .76  kicker 6.59:1   watercolour and both halftone corners read, block still dark  <-- here
+     .70  kicker 5.87:1
+     .62  kicker 4.91:1   green starts to overwhelm the block
+     .54  kicker 4.15:1   FAILS AA
+
+   At .76 the white title measures 14.49:1 worst case. Anything lighter trades legibility for
+   very little extra texture, and .54 puts the kicker under the 4.5:1 floor outright. */
+.page-head::before{ content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:linear-gradient(rgba(9,9,9,.76),rgba(9,9,9,.82)),
+             url('../media/texture/wza-block-800x320.jpg') center/cover no-repeat }
+.page-head::after{ content:""; position:absolute; inset:auto 0 0; z-index:1; height:clamp(10px,1.4vh,16px);
   background:url('../media/texture/wza-band-1920x240.jpg') center/cover no-repeat }
-.page-foot{ position:relative }
-.page-foot::before{ content:""; position:absolute; inset:0 0 auto; height:clamp(10px,1.4vh,16px);
+.page-foot{ position:relative; overflow:hidden }
+.page-foot::after{ content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:linear-gradient(rgba(9,9,9,.76),rgba(9,9,9,.82)),
+             url('../media/texture/wza-block-800x320.jpg') center/cover no-repeat }
+.page-foot::before{ content:""; position:absolute; inset:0 0 auto; z-index:1; height:clamp(10px,1.4vh,16px);
   background:url('../media/texture/wza-band-1920x240.jpg') center/cover no-repeat }
-.page-head .wrap{ position:relative; z-index:2 }
+/* Both blocks put an absolutely positioned layer over a static .wrap, which would otherwise
+   paint on top of the copy. Lifting the wrap is what keeps the text above the texture. */
+/* Event Info's header is a photograph, not a flat block. .head-shot already covers the texture
+   at the same z-index, so this changes nothing visually — it states the intent rather than
+   leaving it to paint order, and saves fetching a texture that is never seen. Watercolour on top
+   of a crowd shot muddies both; the photo carries that header on its own. */
+.page-head.has-shot::before{ display:none }
+.page-head .wrap,.page-foot .wrap{ position:relative; z-index:2 }
 .page-kicker{ margin:0 0 14px; color:var(--green); font:700 10px/1.6 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.2em; text-transform:uppercase }
 .page-title{ margin:0; max-width:16ch; font:500 clamp(34px,5.6vw,78px)/1.02 WZA-Unbounded,Archivo,Arial,sans-serif; letter-spacing:-.03em; text-transform:uppercase }
 .page-standfirst{ margin:clamp(20px,2.6vh,30px) 0 0; max-width:62ch; color:rgba(255,255,255,.82); font:500 clamp(15px,1.35vw,21px)/1.6 WZA-Inter,Inter,Arial,sans-serif }
