@@ -60,12 +60,23 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
    correction, not a full one. Equalising ink outright would have pushed Sports World to 143x109
    and made the thinnest-inked mark the physically largest thing in the band; damping brings the
    spread to 1.68x while nothing exceeds 84px tall. The slot grew 155x66 -> 176x84 to hold it.
-   Recalculate if a partner is added: the numbers are per-mark, not a formula the CSS applies. */
+   Recalculate if a partner is added: the numbers are per-mark, not a formula the CSS applies.
+
+   SPORTS WORLD, SECOND PASS. Asdeporte said it was still hard to read, and the cap was not the
+   real cause. Its PNG was a 742x563 canvas holding a mark only 446x276 — 29.5% coverage, where
+   every other file measures 95-100%. So the box was being fitted to the transparent padding and
+   the visible mark rendered at roughly 67x41 inside an 84px slot. The file is now trimmed to its
+   ink bounds (450x280, 2px margin, alpha intact), which alone took rendered ink 861 -> 3750px^2.
+   The trim changed the aspect ratio 1.32 -> 1.61, leaving the mark width-bound at 111px and 15px
+   of slot height unused, so the cap goes 111 -> 132px: renders 132x82 in the 84px slot, ink
+   ~5300px^2, 1.80x the mean and just under Centrum at 1.84x, so it reads clearly without
+   becoming the largest object on the band. Mobile 78 -> 93px on the same ratio.
+   CHECK COVERAGE BEFORE TUNING A CAP: a padded canvas cannot be fixed with CSS. */
 #v3-mosaic .s-openbank    img{max-width:176px;max-height:44px}
 #v3-mosaic .s-powerade    img{max-width:159px;max-height:21px}
 #v3-mosaic .s-mini        img{max-width:145px;max-height:64px}
 #v3-mosaic .s-centrum     img{max-width:132px;max-height:41px}
-#v3-mosaic .s-sportsworld img{max-width:111px;max-height:84px}
+#v3-mosaic .s-sportsworld img{max-width:132px;max-height:84px}
 #v3-mosaic .s-innova      img{max-width:123px;max-height:59px}
 #v3-mosaic .s-reebok      img{max-width:115px;max-height:59px}
 #v3-mosaic .s-asdeporte   img{max-width:176px;max-height:33px}
@@ -95,7 +106,7 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
   #v3-mosaic .s-powerade    img{max-width:111px;max-height:15px}
   #v3-mosaic .s-mini        img{max-width:102px;max-height:45px}
   #v3-mosaic .s-centrum     img{max-width: 92px;max-height:29px}
-  #v3-mosaic .s-sportsworld img{max-width: 78px;max-height:59px}
+  #v3-mosaic .s-sportsworld img{max-width: 93px;max-height:59px}
   #v3-mosaic .s-innova      img{max-width: 86px;max-height:41px}
   #v3-mosaic .s-reebok      img{max-width: 81px;max-height:41px}
   #v3-mosaic .s-asdeporte   img{max-width:123px;max-height:23px}
