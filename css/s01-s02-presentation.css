@@ -68,15 +68,16 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
    the visible mark rendered at roughly 67x41 inside an 84px slot. The file is now trimmed to its
    ink bounds (450x280, 2px margin, alpha intact), which alone took rendered ink 861 -> 3750px^2.
    The trim changed the aspect ratio 1.32 -> 1.61, leaving the mark width-bound at 111px and 15px
-   of slot height unused, so the cap goes 111 -> 132px: renders 132x82 in the 84px slot, ink
-   ~5300px^2, 1.80x the mean and just under Centrum at 1.84x, so it reads clearly without
-   becoming the largest object on the band. Mobile 78 -> 93px on the same ratio.
+   of slot height unused, so the cap goes 111 -> 118px: renders 118x73, ink ~4240px^2,
+   1.36x the mean. 132px was tried first and read as too big -- not on ink but on HEIGHT: at 82px
+   it stood 18px above the next-tallest mark (Mini at 64) and became the tallest object on a band
+   of wide, short wordmarks. 118px halves that to 9px. Mobile 78 -> 83px on the same ratio.
    CHECK COVERAGE BEFORE TUNING A CAP: a padded canvas cannot be fixed with CSS. */
 #v3-mosaic .s-openbank    img{max-width:176px;max-height:44px}
 #v3-mosaic .s-powerade    img{max-width:159px;max-height:21px}
 #v3-mosaic .s-mini        img{max-width:145px;max-height:64px}
 #v3-mosaic .s-centrum     img{max-width:132px;max-height:41px}
-#v3-mosaic .s-sportsworld img{max-width:132px;max-height:84px}
+#v3-mosaic .s-sportsworld img{max-width:118px;max-height:84px}
 #v3-mosaic .s-innova      img{max-width:123px;max-height:59px}
 #v3-mosaic .s-reebok      img{max-width:115px;max-height:59px}
 #v3-mosaic .s-asdeporte   img{max-width:176px;max-height:33px}
@@ -106,7 +107,7 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
   #v3-mosaic .s-powerade    img{max-width:111px;max-height:15px}
   #v3-mosaic .s-mini        img{max-width:102px;max-height:45px}
   #v3-mosaic .s-centrum     img{max-width: 92px;max-height:29px}
-  #v3-mosaic .s-sportsworld img{max-width: 93px;max-height:59px}
+  #v3-mosaic .s-sportsworld img{max-width: 83px;max-height:59px}
   #v3-mosaic .s-innova      img{max-width: 86px;max-height:41px}
   #v3-mosaic .s-reebok      img{max-width: 81px;max-height:41px}
   #v3-mosaic .s-asdeporte   img{max-width:123px;max-height:23px}
