@@ -1592,7 +1592,7 @@
 
 <nav class="site-nav" aria-label="Wodapalooza Mexico navigation">
   <a class="site-brand" href="#top" aria-label="Back to the beginning"><img src="media/logo/mark-gradient.png" alt="Wodapalooza Mexico City"></a>
-  <div class="site-links" aria-label="Explore"><a href="#top" data-lang-en="Home" data-lang-es="Inicio">Home</a><a href="#b9" data-lang-en="Compete" data-lang-es="Compite">Compete</a><a href="#v3-mosaic" data-lang-en="Mexico City" data-lang-es="Ciudad de México">Mexico City</a><a href="#b12" data-lang-en="Event Info" data-lang-es="Información del evento">Event Info</a></div>
+  <div class="site-links" aria-label="Explore"><a href="#top" data-lang-en="Home" data-lang-es="Inicio">Home</a><a href="compete.html" data-lang-en="Compete" data-lang-es="Compite">Compete</a><a href="mexico-city.html" data-lang-en="Mexico City" data-lang-es="Ciudad de México">Mexico City</a><a href="#b12" data-lang-en="Event Info" data-lang-es="Información del evento">Event Info</a></div>
   <div class="site-actions"><button class="site-lang" type="button" data-lang-toggle aria-label="Switch to Spanish" aria-pressed="false">Español</button><button class="site-menu" type="button" aria-expanded="false" aria-controls="site-panel" data-lang-en="Menu" data-lang-es="Menú">Menu</button></div>
 </nav>
 <aside class="site-panel" id="site-panel" aria-label="Site index">
@@ -1620,8 +1620,12 @@
     </svg>
     <p class="s01-event-date" data-lang-en="MEXICO CITY | DECEMBER 4–6, 2026" data-lang-es="CIUDAD DE MÉXICO | 4–6 DE DICIEMBRE DE 2026">MEXICO CITY <span aria-hidden="true">|</span> DECEMBER 4–6, 2026</p>
     <div class="s01-ticket-action">
-      <button class="s01-ticket-button" type="button" aria-expanded="false" aria-controls="s01-ticket-status" data-lang-en="GET TICKETS" data-lang-es="CONSIGUE ENTRADAS">GET TICKETS</button>
-      <p id="s01-ticket-status" hidden role="status" data-lang-en="Official spectator-ticket link pending confirmation." data-lang-es="El enlace oficial para entradas de espectadores está pendiente de confirmación.">Official spectator-ticket link pending confirmation.</p>
+      <!-- A REAL LINK NOW, NOT A BUTTON. This was a button that toggled a "link pending
+           confirmation" notice, because there was no destination. Asdeporte supplied one, so
+           it becomes an anchor: a control that navigates should be an anchor, so it opens in a
+           new tab, middle-clicks, and is announced as a link rather than as a disclosure
+           widget. The toggle handler and its status paragraph are gone with it. -->
+      <a class="s01-ticket-button" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer" data-lang-en="GET TICKETS" data-lang-es="CONSIGUE ENTRADAS">GET TICKETS</a>
     </div>
     <img class="b0ground" src="media/print/print-field-01.jpg" alt="" aria-hidden="true">
     <div class="b0black"></div>
@@ -1653,8 +1657,12 @@
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="s02-copy">
-      <h2 data-lang-en="MORE THAN&lt;br&gt;THE COMPETITION" data-lang-es="MÁS QUE&lt;br&gt;LA COMPETENCIA">MORE THAN<br>THE COMPETITION</h2>
-    <p data-lang-en="An international fitness festival enters a new chapter in Mexico City. Athletes, fans, and the fitness community come together to compete, connect, and celebrate the sport." data-lang-es="Un festival internacional de fitness entra en un nuevo capítulo en Ciudad de México. Atletas, aficionados y la comunidad del fitness se reúnen para competir, conectar y celebrar el deporte.">An international fitness festival enters a new chapter in Mexico City. Athletes, fans, and the fitness community come together to compete, connect, and celebrate the sport.</p>
+      <!-- Asdeporte, twice: "una competencia" rather than "la competencia", then a follow-up
+           asking for the capital M. The heading is text-transform:uppercase, so it renders as
+           MÁS QUE UNA COMPETENCIA either way — but the underlying string is what a screen
+           reader announces and what a search engine indexes, so it carries the capital. -->
+      <h2 data-lang-en="MORE THAN&lt;br&gt;THE COMPETITION" data-lang-es="Más que&lt;br&gt;una competencia">MORE THAN<br>THE COMPETITION</h2>
+    <p data-lang-en="An international fitness festival enters a new chapter in Mexico City. Athletes, fans, and the fitness community come together to compete, connect, and celebrate the sport." data-lang-es="El festival internacional de fitness llega con un nuevo capítulo a Ciudad de México. Atletas, aficionados y la comunidad del fitness se reúnen para competir, conectar y celebrar el deporte.">An international fitness festival enters a new chapter in Mexico City. Athletes, fans, and the fitness community come together to compete, connect, and celebrate the sport.</p>
     </div>
     <aside class="s02-sponsors" aria-label="Confirmed Mexico City partners">
       <!-- INFINITE MARQUEE, MATCHED TO SOCAL. The set is repeated FOUR times and the track
@@ -1666,36 +1674,44 @@
            needs no other change; only the lap time is worth revisiting. -->
       <div class="s02-sponsor-track">
         <ul>
-          <li><img src="assets/sponsors/mx-openbank.png" alt="Openbank"></li>
-          <li><img src="assets/sponsors/mx-powerade.png" alt="Powerade"></li>
-          <li><img src="assets/sponsors/mx-mini.png" alt="MINI"></li>
-          <li><img src="assets/sponsors/mx-centrum.png" alt="Centrum"></li>
-          <li><img src="assets/sponsors/mx-sportsworld.png" alt="Sports World"></li>
-          <li><img src="assets/sponsors/mx-asdeporte.png" alt="asdeporte"></li>
+          <li class="s-openbank"><img src="assets/sponsors/mx-openbank.png" alt="Openbank"></li>
+          <li class="s-powerade"><img src="assets/sponsors/mx-powerade.png" alt="Powerade"></li>
+          <li class="s-mini"><img src="assets/sponsors/mx-mini.png" alt="MINI"></li>
+          <li class="s-centrum"><img src="assets/sponsors/mx-centrum.png" alt="Centrum"></li>
+          <li class="s-sportsworld"><img src="assets/sponsors/mx-sportsworld.png" alt="Sports World"></li>
+          <li class="s-innova"><img src="assets/sponsors/mx-innova.png" alt="Innova Sports"></li>
+          <li class="s-reebok"><img src="assets/sponsors/mx-reebok.png" alt="Reebok"></li>
+          <li class="s-asdeporte"><img src="assets/sponsors/mx-asdeporte.png" alt="asdeporte"></li>
       </ul>
       <ul aria-hidden="true">
-          <li><img src="assets/sponsors/mx-openbank.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-powerade.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-mini.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-centrum.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-sportsworld.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-asdeporte.png" alt=""></li>
+          <li class="s-openbank"><img src="assets/sponsors/mx-openbank.png" alt=""></li>
+          <li class="s-powerade"><img src="assets/sponsors/mx-powerade.png" alt=""></li>
+          <li class="s-mini"><img src="assets/sponsors/mx-mini.png" alt=""></li>
+          <li class="s-centrum"><img src="assets/sponsors/mx-centrum.png" alt=""></li>
+          <li class="s-sportsworld"><img src="assets/sponsors/mx-sportsworld.png" alt=""></li>
+          <li class="s-innova"><img src="assets/sponsors/mx-innova.png" alt=""></li>
+          <li class="s-reebok"><img src="assets/sponsors/mx-reebok.png" alt=""></li>
+          <li class="s-asdeporte"><img src="assets/sponsors/mx-asdeporte.png" alt=""></li>
       </ul>
       <ul aria-hidden="true">
-          <li><img src="assets/sponsors/mx-openbank.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-powerade.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-mini.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-centrum.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-sportsworld.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-asdeporte.png" alt=""></li>
+          <li class="s-openbank"><img src="assets/sponsors/mx-openbank.png" alt=""></li>
+          <li class="s-powerade"><img src="assets/sponsors/mx-powerade.png" alt=""></li>
+          <li class="s-mini"><img src="assets/sponsors/mx-mini.png" alt=""></li>
+          <li class="s-centrum"><img src="assets/sponsors/mx-centrum.png" alt=""></li>
+          <li class="s-sportsworld"><img src="assets/sponsors/mx-sportsworld.png" alt=""></li>
+          <li class="s-innova"><img src="assets/sponsors/mx-innova.png" alt=""></li>
+          <li class="s-reebok"><img src="assets/sponsors/mx-reebok.png" alt=""></li>
+          <li class="s-asdeporte"><img src="assets/sponsors/mx-asdeporte.png" alt=""></li>
       </ul>
       <ul aria-hidden="true">
-          <li><img src="assets/sponsors/mx-openbank.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-powerade.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-mini.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-centrum.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-sportsworld.png" alt=""></li>
-          <li><img src="assets/sponsors/mx-asdeporte.png" alt=""></li>
+          <li class="s-openbank"><img src="assets/sponsors/mx-openbank.png" alt=""></li>
+          <li class="s-powerade"><img src="assets/sponsors/mx-powerade.png" alt=""></li>
+          <li class="s-mini"><img src="assets/sponsors/mx-mini.png" alt=""></li>
+          <li class="s-centrum"><img src="assets/sponsors/mx-centrum.png" alt=""></li>
+          <li class="s-sportsworld"><img src="assets/sponsors/mx-sportsworld.png" alt=""></li>
+          <li class="s-innova"><img src="assets/sponsors/mx-innova.png" alt=""></li>
+          <li class="s-reebok"><img src="assets/sponsors/mx-reebok.png" alt=""></li>
+          <li class="s-asdeporte"><img src="assets/sponsors/mx-asdeporte.png" alt=""></li>
       </ul>
       </div>
     </aside>

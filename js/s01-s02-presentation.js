@@ -1,13 +1,10 @@
 /* Presentation only. No video access, playback calls, or section-height changes. */
 (() => {
-  const ticket = document.querySelector('.s01-ticket-button');
-  const status = document.querySelector('#s01-ticket-status');
-  ticket?.addEventListener('click', () => {
-    const open = ticket.getAttribute('aria-expanded') !== 'true';
-    ticket.setAttribute('aria-expanded', String(open));
-    status.hidden = !open;
-  });
-
+  /* The GET TICKETS disclosure handler is gone. It existed only to reveal a "link pending
+     confirmation" notice while there was no destination; Asdeporte supplied Competition Corner,
+     so the control is now a plain anchor and needs no script. Removed rather than left in
+     place: the status paragraph it wrote to no longer exists, so the handler would have thrown
+     on the first click. */
   const section = document.querySelector('#v3-mosaic');
   if (!section) return;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');

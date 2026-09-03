@@ -1,0 +1,184 @@
+/* STANDALONE PAGES — Mexico City, Compete.
+   The film is a scroll performance and stays exactly as it is. These are reading pages, and
+   they are a separate stylesheet on purpose: index.html keeps its own inline copy of the nav
+   rules untouched, so nothing here can reach back into the film. The nav block below is
+   therefore a deliberate duplicate of the film's, matched value for value, rather than a
+   shared extraction that would have meant editing the approved page to refactor it.
+
+   Type, colour and chrome are the film's own: Archivo for display, WZA-Unbounded for section
+   heads, WZA-Inter for reading, JetBrains Mono for labels. */
+
+/* Same four faces the film loads, redeclared here so these pages depend on nothing inside
+   s01-s02-presentation.css. Identical URLs, so the browser serves them from cache — the
+   duplicate declaration costs nothing at runtime and keeps the film's stylesheet untouched. */
+@font-face{font-family:WZA-Unbounded;src:url('../assets/fonts/unbounded-500.ttf') format('truetype');font-style:normal;font-weight:500;font-display:swap}
+@font-face{font-family:WZA-Unbounded;src:url('../assets/fonts/unbounded-700.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
+@font-face{font-family:WZA-Inter;src:url('../assets/fonts/inter-500.ttf') format('truetype');font-style:normal;font-weight:500;font-display:swap}
+@font-face{font-family:WZA-Inter;src:url('../assets/fonts/inter-600.ttf') format('truetype');font-style:normal;font-weight:600;font-display:swap}
+
+:root{
+  --green:#6CC180; --blue:#35A7DF;
+  --ink:#fff; --ground:#050505;
+  --paper:#f4f1ea;          /* the page ground — the film's own off-white, not pure #fff */
+  --rule:rgba(9,9,9,.14);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body.wza-page{
+  margin:0; background:var(--paper); color:#111;
+  font-family:WZA-Inter,Inter,"Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── NAV — value-for-value copy of the film's, so the two never look like different sites ── */
+.site-nav{ position:fixed; z-index:100; top:12px; left:20px; right:20px; min-height:78px;
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:28px;
+  padding:8px 10px 8px 22px; color:#fff; background:rgba(12,12,12,.78);
+  border:1px solid rgba(255,255,255,.30); border-radius:20px; box-shadow:0 14px 42px rgba(0,0,0,.22);
+  backdrop-filter:blur(16px) saturate(1.1); font:800 11px/1 Archivo,"Helvetica Neue",Arial,sans-serif;
+  letter-spacing:.14em; text-transform:uppercase }
+.site-nav a,.site-nav button{ color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; text-decoration:none; border:0; background:none; cursor:pointer }
+.site-brand{ display:flex; align-items:center; width:105px; min-width:105px; height:60px; white-space:nowrap }
+.site-brand img{ width:94px; height:60px; object-fit:contain; object-position:left center; filter:drop-shadow(0 2px 5px rgba(0,0,0,.35)) }
+.site-links{ justify-self:center; display:flex; align-items:center; gap:clamp(17px,2.15vw,38px); color:rgba(255,255,255,.72) }
+.site-links a{ padding:8px 0; position:relative }
+.site-links a:hover{ color:#fff }
+/* THE ACTIVE MARKER IS aria-current, NOT :first-child. The film hardcodes the underline to the
+   first link because Home is always the page you are on there. On a real multi-page nav that
+   would underline Home while you are reading Mexico City, so the state is driven by the same
+   attribute that tells a screen reader which page this is. */
+.site-links a[aria-current="page"]{ color:#fff }
+.site-links a[aria-current="page"]::after{ content:""; position:absolute; left:0; right:0; bottom:1px; height:2px; background:#fff }
+.site-actions{ display:flex; gap:12px; align-items:center; padding-left:14px; border-left:1px solid rgba(255,255,255,.25) }
+.site-menu{ padding:15px 18px; border:1px solid rgba(255,255,255,.42)!important }
+.site-lang{ padding:15px 12px; border:1px solid rgba(255,255,255,.28)!important; min-width:42px }
+@media(max-width:760px){
+  .site-nav{top:10px;left:10px;right:10px;min-height:58px;padding:5px 6px 5px 12px;gap:8px;border-radius:15px}
+  .site-links{display:none}
+  .site-brand{width:76px;min-width:76px;height:46px}.site-brand img{width:76px;height:46px}
+  .site-actions{gap:6px;padding-left:7px}
+  .site-menu{padding:12px 10px!important}.site-lang{padding:12px 8px!important;min-width:38px}
+}
+
+/* ── PAGE HEAD — a dark band so the fixed nav has something to sit on, as it does on the film ── */
+.page-head{ position:relative; padding:clamp(128px,15vh,190px) 0 clamp(48px,6vh,78px); background:var(--ground); color:#fff; overflow:hidden }
+
+/* ASDEPORTE'S OWN TEXTURE, USED WHERE IT CANNOT FIGHT ANYTHING.
+   Jose supplied a 1920x240 watercolour band — teal to green with magenta halftone in opposite
+   corners. It is not on the sponsor strip, which stays white to match SoCal, and it is not on
+   the film, which is finished. It closes the dark page header instead, which is precisely the
+   proportion the asset was cut at.
+   Deliberately NOT behind the headline: white type sits fine on it, but the green kicker
+   (#6CC180) would sink straight into the green half. As a rule under the header it carries the
+   brand without touching legibility. background-size:cover with a fixed height keeps the
+   halftone corners in frame at any width. */
+.page-head::after{ content:""; position:absolute; inset:auto 0 0; height:clamp(10px,1.4vh,16px);
+  background:url('../media/texture/wza-band-1920x240.jpg') center/cover no-repeat }
+.page-foot{ position:relative }
+.page-foot::before{ content:""; position:absolute; inset:0 0 auto; height:clamp(10px,1.4vh,16px);
+  background:url('../media/texture/wza-band-1920x240.jpg') center/cover no-repeat }
+.page-head .wrap{ position:relative; z-index:2 }
+.page-kicker{ margin:0 0 14px; color:var(--green); font:700 10px/1.6 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.2em; text-transform:uppercase }
+.page-title{ margin:0; max-width:16ch; font:500 clamp(34px,5.6vw,78px)/1.02 WZA-Unbounded,Archivo,Arial,sans-serif; letter-spacing:-.03em; text-transform:uppercase }
+.page-standfirst{ margin:clamp(20px,2.6vh,30px) 0 0; max-width:62ch; color:rgba(255,255,255,.82); font:500 clamp(15px,1.35vw,21px)/1.6 WZA-Inter,Inter,Arial,sans-serif }
+
+.wrap{ width:min(1180px,calc(100% - clamp(32px,7vw,120px))); margin-inline:auto }
+
+/* ── SECTIONS ───────────────────────────────────────────────────────────────────────────── */
+.page-body{ padding:clamp(52px,7vh,96px) 0 clamp(72px,10vh,132px) }
+.sec{ padding-block:clamp(34px,4.4vh,58px); border-top:1px solid var(--rule) }
+.sec:first-child{ border-top:0; padding-top:0 }
+.sec-head{ margin:0 0 clamp(22px,3vh,36px); font:500 clamp(22px,2.7vw,38px)/1.1 WZA-Unbounded,Archivo,Arial,sans-serif; letter-spacing:-.02em; text-transform:uppercase }
+.sec-intro{ margin:-8px 0 clamp(26px,3.4vh,42px); max-width:66ch; color:#3b3b3b; font:500 clamp(15px,1.3vw,19px)/1.65 WZA-Inter,Inter,Arial,sans-serif }
+
+/* Cards — the neighbourhoods and the areas to see */
+.cards{ display:grid; gap:clamp(16px,2vw,26px); grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr)) }
+/* WHERE TO STAY IS FOUR CARDS, AND FOUR INTO A THREE-COLUMN GRID LEAVES ONE STRANDED.
+   A wider minimum gives two columns at this container width, so the four sit 2x2 and Santa Fe
+   — which carries the most copy, including the trade-off paragraph — gets a column wide enough
+   to hold it. What to see is five cards and reads fine as 3 + 2, so it keeps the default. */
+.cards--stay{ grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)) }
+.card{ padding:clamp(22px,2.4vw,32px); background:#fff; border:1px solid var(--rule) }
+.card h3{ margin:0 0 12px; font:500 clamp(17px,1.5vw,23px)/1.15 WZA-Unbounded,Archivo,Arial,sans-serif; letter-spacing:-.01em; text-transform:uppercase }
+.card p{ margin:0 0 11px; color:#3b3b3b; font:500 clamp(14px,1.02vw,16px)/1.62 WZA-Inter,Inter,Arial,sans-serif }
+.card p:last-child{ margin-bottom:0 }
+.card .best{ margin-top:15px; padding-top:13px; border-top:1px solid var(--rule); color:#111; font:600 clamp(12px,.92vw,13px)/1.5 WZA-Inter,Inter,Arial,sans-serif }
+.card .best b{ color:var(--green); font-weight:700 }
+
+/* A pulled-out recommendation, used once — Santa Fe vs the walkable neighbourhoods */
+.callout{ margin-top:clamp(20px,2.6vw,30px); padding:clamp(22px,2.6vw,34px); background:var(--ground); color:#fff; border-left:3px solid var(--green) }
+.callout p{ margin:0; max-width:78ch; font:500 clamp(15px,1.15vw,18px)/1.62 WZA-Inter,Inter,Arial,sans-serif }
+.callout b{ color:var(--green); font-weight:700 }
+
+/* Prose blocks — Eat Like a Local, Getting Around */
+.prose{ max-width:70ch }
+.prose p{ margin:0 0 15px; color:#3b3b3b; font:500 clamp(15px,1.15vw,18px)/1.68 WZA-Inter,Inter,Arial,sans-serif }
+.prose p:last-child{ margin-bottom:0 }
+.prose .rule-line{ margin:26px 0; padding:20px 24px; background:#fff; border:1px solid var(--rule); color:#111;
+  font:500 clamp(17px,1.6vw,25px)/1.25 WZA-Unbounded,Archivo,Arial,sans-serif; letter-spacing:-.02em; text-transform:uppercase }
+.prose .note{ margin-top:22px; padding:18px 20px; background:rgba(53,167,223,.07); border:1px solid rgba(53,167,223,.28); color:#25445a;
+  font:500 clamp(13px,1vw,15px)/1.6 WZA-Inter,Inter,Arial,sans-serif }
+.prose .note b{ color:#111 }
+
+/* Tips — a definition list, because each tip genuinely is term + explanation */
+.tips{ display:grid; gap:0; margin:0; max-width:88ch }
+.tips div{ display:grid; grid-template-columns:minmax(120px,190px) 1fr; gap:clamp(14px,2vw,32px);
+  padding-block:clamp(15px,1.9vh,22px); border-top:1px solid var(--rule) }
+.tips div:first-child{ border-top:0 }
+.tips dt{ margin:0; font:500 clamp(14px,1.1vw,17px)/1.35 WZA-Unbounded,Archivo,Arial,sans-serif; letter-spacing:-.01em; text-transform:uppercase }
+.tips dd{ margin:0; color:#3b3b3b; font:500 clamp(14px,1.05vw,16px)/1.62 WZA-Inter,Inter,Arial,sans-serif }
+@media(max-width:640px){ .tips div{ grid-template-columns:1fr; gap:7px } }
+
+/* ── DIVISION STANDARDS TABLE ────────────────────────────────────────────────────────────
+   Nine divisions against twelve movements does not fit a phone, and squeezing it would make
+   the numbers unreadable — which is the one thing this table exists to convey. So it scrolls
+   horizontally inside its own container, exactly as mexico.wodapalooza.com does, and the
+   movement column is sticky so you never lose track of which row you are reading. */
+.table-scroll{ position:relative; overflow-x:auto; -webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule); background:#fff }
+.table-hint{ margin:0 0 12px; color:#6a6a6a; font:700 10px/1.5 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.14em; text-transform:uppercase }
+table.standards{ border-collapse:collapse; width:max-content; min-width:100%;
+  font:500 clamp(12px,.92vw,14px)/1.4 WZA-Inter,Inter,Arial,sans-serif }
+table.standards th,table.standards td{ padding:12px 16px; text-align:left; border-bottom:1px solid var(--rule); white-space:nowrap }
+table.standards thead th{ position:sticky; top:0; z-index:2; background:var(--ground); color:#fff;
+  font:700 10px/1.35 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase; white-space:normal; min-width:104px; vertical-align:bottom }
+/* The movement name stays put while the divisions scroll past it. */
+table.standards tbody th{ position:sticky; left:0; z-index:1; background:#fff; border-right:1px solid var(--rule);
+  font:700 11px/1.35 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.06em; text-transform:uppercase; color:#111; min-width:150px }
+table.standards thead th:first-child{ left:0; z-index:3 }
+table.standards tbody tr:nth-child(even) td{ background:rgba(9,9,9,.028) }
+table.standards tbody tr:nth-child(even) th{ background:#f7f5f0 }
+table.standards td{ color:#3b3b3b }
+table.standards .yes{ color:var(--green); font-weight:700 }
+table.standards .no{ color:#b0b0b0 }
+
+/* ── QUALIFIER ───────────────────────────────────────────────────────────────────────── */
+.status-line{ display:inline-block; margin:0 0 clamp(22px,3vh,32px); padding:11px 18px;
+  background:rgba(9,9,9,.06); border-left:3px solid #9a9a9a; color:#3b3b3b;
+  font:600 clamp(12px,1vw,14px)/1.5 WZA-Inter,Inter,Arial,sans-serif }
+/* Five across at full width, so the five workouts read as a set rather than 4 + 1 stranded.
+   A 270px minimum gave four columns and orphaned Workout 5 on its own row; 190px lands five
+   in the container and still wraps to 3, 2 then 1 as the viewport narrows. */
+.wods{ display:grid; gap:clamp(14px,1.6vw,22px); grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)) }
+.wod{ background:#fff; border:1px solid var(--rule); display:flex; flex-direction:column }
+.wod img{ display:block; width:100%; height:auto; aspect-ratio:3/4; object-fit:cover; background:#111 }
+.wod-body{ padding:clamp(16px,1.7vw,22px); display:flex; flex-direction:column; gap:9px; flex:1 }
+.wod-body h3{ margin:0; font:500 clamp(16px,1.35vw,20px)/1.15 WZA-Unbounded,Archivo,Arial,sans-serif; letter-spacing:-.01em; text-transform:uppercase }
+.wod-cap{ margin:0; color:var(--green); font:700 10px/1.4 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase }
+.wod-scheme{ margin:0; color:#111; font:600 clamp(13px,1.02vw,15px)/1.45 WZA-Inter,Inter,Arial,sans-serif }
+.wod ul{ margin:0; padding-left:17px; color:#3b3b3b; font:500 clamp(13px,1vw,15px)/1.6 WZA-Inter,Inter,Arial,sans-serif }
+.wod .card-link{ margin-top:auto; padding-top:13px; color:#111; font:700 10px/1 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; border-top:1px solid var(--rule) }
+.wod .card-link:hover{ color:var(--green) }
+
+/* ── FOOT — deliberately quieter than the film's footer; this is a reading page, not the close ── */
+.page-foot{ padding:clamp(44px,6vh,72px) 0; background:var(--ground); color:#fff }
+.page-foot .wrap{ display:flex; flex-wrap:wrap; gap:22px 40px; align-items:center; justify-content:space-between }
+.page-foot a{ color:var(--green); font:600 14px/1.5 WZA-Inter,Inter,Arial,sans-serif; text-decoration:underline; text-underline-offset:5px }
+.page-foot p{ margin:0; color:rgba(255,255,255,.62); font:500 12px/1.6 WZA-Inter,Inter,Arial,sans-serif }
+.back-film{ display:inline-grid; place-items:center; padding:16px 26px; border:1px solid var(--green); color:var(--green)!important;
+  font:700 12px/1 WZA-Unbounded,Archivo,Arial,sans-serif; letter-spacing:.1em; text-transform:uppercase; text-decoration:none!important;
+  transition:background-color .2s,color .2s }
+.back-film:hover{ background:var(--green); color:#050505!important }
+
+@media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .back-film{transition:none} }

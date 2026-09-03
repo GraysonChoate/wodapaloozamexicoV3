@@ -8,10 +8,13 @@
 #b0 .s01-event-date{position:absolute;z-index:10;top:calc(50% + 36px - min(13.8vw,(100svh - 120px)*.27));left:50%;transform:translate(-50%,-100%);margin:0;padding-bottom:6px;border-bottom:1px solid #6CC180;white-space:nowrap;color:#fff;font:600 clamp(11px,1.1vw,17px)/1.5 WZA-Inter,Arial,sans-serif;letter-spacing:.015em}
 #b0 .s01-event-date span{padding-inline:5px}
 #b0 .s01-ticket-action{position:absolute;z-index:10;top:calc(50% + 36px + min(13.8vw,(100svh - 120px)*.27));left:50%;transform:translateX(-50%);width:min(380px,80%);text-align:center}
-#b0 .s01-ticket-button{width:100%;min-height:66px;padding:18px 24px;border:1px solid #6CC180;border-radius:0;background:transparent;color:#6CC180;font:700 15px/1.4 WZA-Unbounded,Arial,sans-serif;cursor:pointer;transition:background-color .2s,color .2s}
+/* Now an <a>, not a <button>. display:grid + place-items keeps the label optically centred the
+   way a button's intrinsic centring did, box-sizing keeps the 1px border inside the 100% width
+   instead of overflowing it, and text-decoration:none removes the underline an anchor brings.
+   Identical to look at — only the element changed. */
+#b0 .s01-ticket-button{display:grid;place-items:center;box-sizing:border-box;width:100%;min-height:66px;padding:18px 24px;border:1px solid #6CC180;border-radius:0;background:transparent;color:#6CC180;font:700 15px/1.4 WZA-Unbounded,Arial,sans-serif;text-decoration:none;cursor:pointer;transition:background-color .2s,color .2s}
 #b0 .s01-ticket-button:hover{background:#6CC180;color:#050505}
 #b0 .s01-ticket-button:focus-visible{outline:2px solid #fff;outline-offset:5px}
-#b0 #s01-ticket-status{margin:12px 0 0;color:#fff;font:500 12px/1.5 WZA-Inter,Arial,sans-serif}
 
 /* Preserve the full-height media geometry and crop only its displayed bottom edge.
    The white band is inside the existing stage: no added scroll distance or media edits. */
@@ -35,16 +38,37 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
    the video crop above it is untouched. The one thing SoCal does that a static grid cannot is
    run continuously, which is what the marquee below adds. */
 #v3-mosaic .s02-sponsors{position:absolute;z-index:3;inset:auto 0 0;height:var(--sponsor-height);background:#fff;color:#111;display:flex;flex-direction:column;justify-content:center;padding:18px 0 16px;overflow:hidden}
-/* 64s. The lap time is not the speed — speed is half the track over the duration, and half
-   the track is 2724px at six marks. The history is worth keeping: 40s was 68px/s, 54s was
-   50px/s, and this is 43px/s. Mobile is set to 43s in the query below so it lands on the same
-   43px/s over its shorter 1824px half-track — matching the DURATION across breakpoints instead
-   would make the phone noticeably faster. Recalculate BOTH if the partner count changes, since
-   adding a mark lengthens the track and would speed the strip up at a fixed duration. */
-#v3-mosaic .s02-sponsor-track{display:flex;width:max-content;animation:s02sponsors 64s linear infinite;will-change:transform}
+/* 92s, and that is NOT a slowdown — it is the same 43px/s the speed was tuned to.
+   Speed is half the track over the duration. Going from six marks to eight, in a slot that also
+   grew to 176px, took the half-track from 2724px to 3968px; holding 64s would have accelerated
+   the strip to 62px/s, undoing two rounds of tuning. 92s keeps it at 43px/s exactly.
+   The tuning history, since the number alone hides it: 40s/68px/s -> 54s/50 -> 64s/43 at six
+   marks -> 92s/43 at eight. Mobile is 62s in the query below for the same 43px/s over its
+   shorter 2672px half-track. Recalculate BOTH whenever a partner is added or the slot changes. */
+#v3-mosaic .s02-sponsor-track{display:flex;width:max-content;animation:s02sponsors 92s linear infinite;will-change:transform}
 #v3-mosaic .s02-sponsors ul{display:flex;align-items:center;gap:72px;list-style:none;margin:0;padding:0 36px}
-#v3-mosaic .s02-sponsors li{flex:none;display:grid;place-items:center;width:155px;height:66px}
-#v3-mosaic .s02-sponsors img{display:block;width:auto;height:auto;max-width:155px;max-height:66px;object-fit:contain}
+#v3-mosaic .s02-sponsors li{flex:none;display:grid;place-items:center;width:176px;height:84px}
+#v3-mosaic .s02-sponsors img{display:block;width:auto;height:auto;max-width:176px;max-height:84px;object-fit:contain}
+
+/* OPTICAL BALANCE — "all the partners logo in the same proportion", per Asdeporte.
+   Fitting every mark to one box does NOT make them look the same size, because a box measures
+   the bounding rectangle and an eye measures ink. Measured across the eight, rendered ink area
+   inside the old 155x66 slot ranged from 861px^2 (Sports World) to 3806 (Centrum) — a 4.4x
+   spread, and Sports World the smallest of all, which is exactly the one Asdeporte said was
+   unreadable.
+   Each cap below is the mark's own size scaled by (mean_ink / its_ink) ^ 0.325 — a DAMPED
+   correction, not a full one. Equalising ink outright would have pushed Sports World to 143x109
+   and made the thinnest-inked mark the physically largest thing in the band; damping brings the
+   spread to 1.68x while nothing exceeds 84px tall. The slot grew 155x66 -> 176x84 to hold it.
+   Recalculate if a partner is added: the numbers are per-mark, not a formula the CSS applies. */
+#v3-mosaic .s-openbank    img{max-width:176px;max-height:44px}
+#v3-mosaic .s-powerade    img{max-width:159px;max-height:21px}
+#v3-mosaic .s-mini        img{max-width:145px;max-height:64px}
+#v3-mosaic .s-centrum     img{max-width:132px;max-height:41px}
+#v3-mosaic .s-sportsworld img{max-width:111px;max-height:84px}
+#v3-mosaic .s-innova      img{max-width:123px;max-height:59px}
+#v3-mosaic .s-reebok      img{max-width:115px;max-height:59px}
+#v3-mosaic .s-asdeporte   img{max-width:176px;max-height:33px}
 /* -50% is exactly two of the four sets, so it lands on a frame identical to the start and the
    wrap cannot be seen. Four sets, not two: one set of six marks is 1362px, and at two sets the
    half-track would be 1362px — narrower than a 1440 viewport, which would expose a bare strip
@@ -62,10 +86,20 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
      155px width would have flattened every mark. Keep the SoCal ratio, just smaller.
      The shorter duration below is NOT a faster strip — the track is shorter here too, so
      43s matches the desktop's 43px/s rather than undercutting it. */
+  /* Slot and every per-mark cap scale by 0.70 together, so the optical balance worked out
+     above survives the breakpoint instead of collapsing back to bounding-box fitting. */
   #v3-mosaic .s02-sponsors ul{gap:44px;padding:0 22px}
-  #v3-mosaic .s02-sponsors li{width:108px;height:46px}
-  #v3-mosaic .s02-sponsors img{max-width:108px;max-height:46px}
-  #v3-mosaic .s02-sponsor-track{animation-duration:43s}
+  #v3-mosaic .s02-sponsors li{width:123px;height:59px}
+  #v3-mosaic .s02-sponsors img{max-width:123px;max-height:59px}
+  #v3-mosaic .s-openbank    img{max-width:123px;max-height:31px}
+  #v3-mosaic .s-powerade    img{max-width:111px;max-height:15px}
+  #v3-mosaic .s-mini        img{max-width:102px;max-height:45px}
+  #v3-mosaic .s-centrum     img{max-width: 92px;max-height:29px}
+  #v3-mosaic .s-sportsworld img{max-width: 78px;max-height:59px}
+  #v3-mosaic .s-innova      img{max-width: 86px;max-height:41px}
+  #v3-mosaic .s-reebok      img{max-width: 81px;max-height:41px}
+  #v3-mosaic .s-asdeporte   img{max-width:123px;max-height:23px}
+  #v3-mosaic .s02-sponsor-track{animation-duration:62s}
   #v3-mosaic .s02-sponsors p{font-size:8px;letter-spacing:.07em;margin-top:12px}
 }
 @media(prefers-reduced-motion:reduce){
