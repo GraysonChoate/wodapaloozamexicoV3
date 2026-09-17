@@ -79,7 +79,7 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
 #v3-mosaic .s-centrum     img{max-width:132px;max-height:41px}
 #v3-mosaic .s-sportsworld img{max-width:176px;max-height:84px}
 #v3-mosaic .s-innova      img{max-width:123px;max-height:59px}
-#v3-mosaic .s-reebok      img{max-width:115px;max-height:59px}
+#v3-mosaic .s-ruster      img{max-width:176px;max-height:84px}
 #v3-mosaic .s-asdeporte   img{max-width:176px;max-height:33px}
 /* -50% is exactly two of the four sets, so it lands on a frame identical to the start and the
    wrap cannot be seen. Four sets, not two: one set of six marks is 1362px, and at two sets the
@@ -109,7 +109,7 @@ body.s01-controls-visible #b11 .stage,body.s01-controls-visible #b11 .stage *{po
   #v3-mosaic .s-centrum     img{max-width: 92px;max-height:29px}
   #v3-mosaic .s-sportsworld img{max-width:123px;max-height:59px}
   #v3-mosaic .s-innova      img{max-width: 86px;max-height:41px}
-  #v3-mosaic .s-reebok      img{max-width: 81px;max-height:41px}
+  #v3-mosaic .s-ruster      img{max-width:123px;max-height:59px}
   #v3-mosaic .s-asdeporte   img{max-width:123px;max-height:23px}
   #v3-mosaic .s02-sponsor-track{animation-duration:62s}
   #v3-mosaic .s02-sponsors p{font-size:8px;letter-spacing:.07em;margin-top:12px}
