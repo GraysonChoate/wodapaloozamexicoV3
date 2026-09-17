@@ -1,7 +1,7 @@
 # Asdeporte requests — full record
 
 Everything José Orozco Rojano has asked for, in the order he asked, with what was done and what
-is still open. Current as of **8 September 2026**, HEAD `faf9fa5`, live at
+is still open. Current as of **17 September 2026**, HEAD `74dd244`, live at
 `wodapaloozamexico-v3.vercel.app`.
 
 Client contact: **José Orozco Rojano**, Business Manager, Asdeporte — jorozcor@asdeporte.com
@@ -163,16 +163,66 @@ restored the **official two-tone — WORLD in red** — where an all-black versi
 
 ---
 
+## Email 5 — 16 September. Ruster, volunteering, prizes.
+
+### Remove Reebok, add Ruster
+**Done.** Eight marks still, organiser last. He attached the wordmark `.ai` and a 23-page brand
+book.
+
+The brand book's "versiones y usos" page approves three lockups and **all three are stacked**,
+R-mark on top — the wrong shape for a wide, short slot, exactly the trap the Sports World pass
+worked through. The attached `.ai` is the horizontal wordmark, and wordmark-only "RUSTER®" is
+what the brand book itself uses on every one of its pages, so that is what ships.
+
+The "PUSH YOUR LIMITS" tagline is dropped, measured not assumed: the band is width-bound at
+176px, so RUSTER renders at **34.1px cap height either way**. The tagline would add 17px of
+height and a line of type about 6px tall. Extracted from the Illustrator source at 4000px, ink
+scan to locate, un-composited from white to real alpha. 880×174, 28 KB.
+
+**This also resolves the "event logo with Reebok and Roster" item from his 1 September email.**
+"Roster" there was almost certainly "Ruster" — same partner, and he has now reversed the Reebok
+half of it.
+
+### Volunteering tab
+**Done** — `volunteering.html`, fifth in the nav alongside Event Information, Compete and Travel
+as he asked. His overview copy verbatim in both languages, 29 balanced pairs.
+
+The seven areas are **listed, not described**. He named them and gave no copy for any, so nothing
+is invented; if per-area copy arrives they become `.div-card` articles like the divisions on
+event-info. His Spanish leaves six of the seven role names in English and translates only
+"Jueces" — his usage, preserved.
+
+**THE FORM IS NOT LIVE.** He said it would follow "between today and tomorrow" (16 Sep). No URL
+is invented and no button is shown that would 404; a status line states applications have not
+opened, with a comment in the markup marking exactly what to replace.
+
+### Prizes in the event overview
+**Done** — his figures: Elite $250,000 / $125,000 / $50,000 MXN, awarded on both the men's and
+women's side, plus more than $300,000 MXN combined across the remaining divisions. His paragraph
+verbatim.
+
+Set as display type on the watercolour rather than as table rows — the money is the news on that
+page and it was reading as small print. The amounts carry no `data-lang` pair because the string
+is identical in both languages; only the place labels switch.
+
+This replaced a placeholder note written before the figures existed, which said only that the
+Elite division "carries a significant cash prize purse".
+
+---
+
 ## Open — waiting on Asdeporte
 
 1. **Qualifier wording.** The 18–26 August 2026 window has closed. The page states that as fact
    rather than inviting registration, which would be wrong. He needs to confirm the final
    phrasing. *This is the one thing on the site currently stated without his sign-off.*
 2. **Two additional partners** he said were coming.
-3. **Event logo with Reebok and Roster**, once approved on his side.
+3. ~~Event logo with Reebok and Roster~~ — **resolved 16 Sep**: Reebok out, Ruster in.
 4. **Tickets destination**, if Competition Corner changes.
 5. **Comments from the wider Asdeporte and Mexico teams**, which he has invited.
-6. **The Travel tab name.** We renamed "Mexico City" → "Travel" on our own judgment, because the
+6. **The volunteer Google Form.** Promised 16 Sep "between today and tomorrow" and not yet
+   received. The Volunteering page is built and live around its absence — swap the status line
+   in `volunteering.html` for a Register anchor when it lands.
+7. **The Travel tab name.** We renamed "Mexico City" → "Travel" on our own judgment, because the
    page is a travel guide and the old label read as "about this event" on a site already called
    Wodapalooza Mexico City. Flagged to him as easy to change. Not his request — ours.
 
