@@ -217,6 +217,41 @@ table.standards .no{ color:#b0b0b0 }
   font:600 10px/1.5 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.11em; text-transform:uppercase }
 .shots{ display:grid; gap:clamp(14px,1.7vw,22px); grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr)); margin-top:clamp(22px,2.8vh,34px) }
 
+/* ── PRIZE PANEL ────────────────────────────────────────────────────────────────────────
+   The money IS the news on this page, and as .facts rows it read as small print. The figures
+   are set as display type on the brand watercolour instead — the same dark block and the same
+   .70 overlay as the page header, so it belongs to the system rather than being a one-off.
+   No new asset: wza-block-800x320.jpg is already fetched for the header and footer, so this
+   panel costs one extra paint and nothing extra over the network.
+   Contrast on that overlay was measured when the header was built: white 12.83:1, the green
+   #6CC180 5.87:1. The place labels are green, the amounts white; both clear 4.5:1.
+   Three columns for the Elite podium, one row beneath for everything else. Below 720px they
+   stack, because $250,000 set at display size cannot share a phone width with two siblings. */
+.prizes{ position:relative; overflow:hidden; margin-top:clamp(24px,3vh,38px);
+  padding:clamp(26px,3.4vw,44px); background:var(--ground); color:#fff }
+.prizes::before{ content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:linear-gradient(rgba(9,9,9,.70),rgba(9,9,9,.77)),
+             url('../media/texture/wza-block-800x320.jpg') center/cover no-repeat }
+.prizes > *{ position:relative; z-index:2 }
+.podium{ display:grid; gap:clamp(18px,2.4vw,32px); grid-template-columns:repeat(3,1fr) }
+.prize .place{ margin:0 0 10px; color:var(--green);
+  font:700 10px/1.5 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.16em; text-transform:uppercase }
+.prize .amount{ margin:0; color:#fff; font:500 clamp(26px,3.3vw,46px)/1.05 WZA-Unbounded,Archivo,Arial,sans-serif;
+  letter-spacing:-.02em }
+.prize .amount span{ display:inline-block; margin-left:.35em; color:rgba(255,255,255,.62);
+  font:700 11px/1 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.14em; vertical-align:middle }
+/* The remaining divisions are a different kind of number — a pooled total, not a placing — so
+   they sit below the podium on their own rule rather than as a fourth column pretending to be
+   one. */
+.prize--rest{ margin-top:clamp(22px,2.8vw,34px); padding-top:clamp(20px,2.6vw,30px);
+  border-top:1px solid rgba(255,255,255,.22) }
+.prize--rest .amount{ font-size:clamp(20px,2.2vw,30px) }
+.prizes .foot{ margin:clamp(18px,2.2vw,26px) 0 0; color:rgba(255,255,255,.58);
+  font:500 12px/1.6 WZA-Inter,Inter,Arial,sans-serif }
+@media(max-width:720px){
+  .podium{ grid-template-columns:1fr; gap:clamp(16px,4vw,22px) }
+}
+
 /* ── FACT BLOCK — dates, venue, address ─────────────────────────────────────────────────── */
 .facts{ display:grid; gap:0; margin:0; max-width:74ch }
 .facts div{ display:grid; grid-template-columns:minmax(110px,180px) 1fr; gap:clamp(14px,2vw,30px);

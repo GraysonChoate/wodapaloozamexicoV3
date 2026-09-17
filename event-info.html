@@ -163,24 +163,30 @@
       <div class="prose">
         <p data-lang-en="Wodapalooza Mexico City will feature a significant prize purse for its athletes. In the Elite division, both men and women will compete for $250,000 MXN for first place, $125,000 MXN for second place, and $50,000 MXN for third place. In addition, athletes across the remaining divisions will compete for a combined prize purse of more than $300,000 MXN, reinforcing the event’s commitment to recognizing top performances across its different competitive divisions." data-lang-es="Wodapalooza Mexico City contará con una importante bolsa de premios para sus atletas. En la división Elite, tanto en la rama varonil como femenil, el primer lugar recibirá $250,000 MXN, el segundo $125,000 MXN y el tercero $50,000 MXN. Además, el resto de las divisiones competirán por una bolsa acumulada superior a $300,000 MXN, reforzando el compromiso del evento por reconocer el desempeño de atletas en sus diferentes categorías.">Wodapalooza Mexico City will feature a significant prize purse for its athletes. In the Elite division, both men and women will compete for $250,000 MXN for first place, $125,000 MXN for second place, and $50,000 MXN for third place. In addition, athletes across the remaining divisions will compete for a combined prize purse of more than $300,000 MXN, reinforcing the event’s commitment to recognizing top performances across its different competitive divisions.</p>
       </div>
-      <dl class="facts">
-      <div>
-        <dt data-lang-en="Elite — 1st place" data-lang-es="Elite — 1.er lugar">Elite — 1st place</dt>
-        <dd data-lang-en="$250,000 MXN" data-lang-es="$250,000 MXN">$250,000 MXN</dd>
+      <!-- The amounts carry no data-lang pair: "$250,000 MXN" is the same string in both
+           languages, and a pair whose halves are identical is noise in the translation audit.
+           Only the place labels switch. -->
+      <div class="prizes">
+        <div class="podium">
+          <div class="prize">
+            <p class="place" data-lang-en="Elite — 1st place" data-lang-es="Elite — 1.er lugar">Elite — 1st place</p>
+            <p class="amount">$250,000 <span>MXN</span></p>
+          </div>
+          <div class="prize">
+            <p class="place" data-lang-en="Elite — 2nd place" data-lang-es="Elite — 2.º lugar">Elite — 2nd place</p>
+            <p class="amount">$125,000 <span>MXN</span></p>
+          </div>
+          <div class="prize">
+            <p class="place" data-lang-en="Elite — 3rd place" data-lang-es="Elite — 3.er lugar">Elite — 3rd place</p>
+            <p class="amount">$50,000 <span>MXN</span></p>
+          </div>
+        </div>
+        <div class="prize prize--rest">
+          <p class="place" data-lang-en="All other divisions — combined" data-lang-es="Resto de divisiones — bolsa acumulada">All other divisions — combined</p>
+          <p class="amount">$300,000+ <span>MXN</span></p>
+        </div>
+        <p class="foot" data-lang-en="The Elite purse is awarded on both the men’s and women’s side." data-lang-es="La bolsa Elite se entrega tanto en la rama varonil como en la femenil.">The Elite purse is awarded on both the men’s and women’s side.</p>
       </div>
-      <div>
-        <dt data-lang-en="Elite — 2nd place" data-lang-es="Elite — 2.º lugar">Elite — 2nd place</dt>
-        <dd data-lang-en="$125,000 MXN" data-lang-es="$125,000 MXN">$125,000 MXN</dd>
-      </div>
-      <div>
-        <dt data-lang-en="Elite — 3rd place" data-lang-es="Elite — 3.er lugar">Elite — 3rd place</dt>
-        <dd data-lang-en="$50,000 MXN" data-lang-es="$50,000 MXN">$50,000 MXN</dd>
-      </div>
-      <div>
-        <dt data-lang-en="All other divisions" data-lang-es="Resto de divisiones">All other divisions</dt>
-        <dd data-lang-en="More than $300,000 MXN combined" data-lang-es="Bolsa acumulada superior a $300,000 MXN">More than $300,000 MXN combined</dd>
-      </div>
-      </dl>
     </section>
 
     <!-- ── MORE THAN A COMPETITION ────────────────────────────────────────────────────── -->
