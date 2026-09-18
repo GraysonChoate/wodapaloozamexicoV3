@@ -1,7 +1,7 @@
 # Asdeporte requests — full record
 
 Everything José Orozco Rojano has asked for, in the order he asked, with what was done and what
-is still open. Current as of **17 September 2026**, HEAD `74dd244`, live at
+is still open. Current as of **18 September 2026**, HEAD `live`, live at
 `wodapaloozamexico-v3.vercel.app`.
 
 Client contact: **José Orozco Rojano**, Business Manager, Asdeporte — jorozcor@asdeporte.com
@@ -210,6 +210,31 @@ Elite division "carries a significant cash prize purse".
 
 ---
 
+## Email 6 — 17 September. Form link, and two answers.
+
+### The volunteer form — **received and live**
+`https://forms.cloud.microsoft/r/B6t7MpycKm`. **Microsoft Forms, not Google** as first described.
+The status line on `volunteering.html` is replaced with an "Apply to volunteer" / "Aplica como
+voluntario" button, same pattern as Register on compete and the Rulebook download: `target=_blank`
+with `rel="noopener noreferrer"`. Verified to resolve 200 to a live response page.
+
+### "Ruster, instead of roster (auto corrector)"
+Confirmed. The 1 September "Reebok and Roster" line was autocorrect. Same partner, and Reebok is
+already out.
+
+### "What do you mean by the qualifier wording?"
+His question, outstanding on our side rather than his. The `compete.html` qualifier section states
+the 18–26 August 2026 window **as a closed fact** rather than inviting registration, because the
+window had passed by the time the page was built. Nobody has confirmed whether that is the right
+thing to say — whether it should stay as a record, be removed, or be replaced with whatever comes
+next. An answer was drafted for him on 18 September.
+
+### Out of office
+José is away until **3 October** with limited email. Urgent marketing goes to **Mauricio Ibarra,
+mibarra@asdeporte.com**. Expect slow replies until then.
+
+---
+
 ## Open — waiting on Asdeporte
 
 1. **Qualifier wording.** The 18–26 August 2026 window has closed. The page states that as fact
@@ -219,9 +244,7 @@ Elite division "carries a significant cash prize purse".
 3. ~~Event logo with Reebok and Roster~~ — **resolved 16 Sep**: Reebok out, Ruster in.
 4. **Tickets destination**, if Competition Corner changes.
 5. **Comments from the wider Asdeporte and Mexico teams**, which he has invited.
-6. **The volunteer Google Form.** Promised 16 Sep "between today and tomorrow" and not yet
-   received. The Volunteering page is built and live around its absence — swap the status line
-   in `volunteering.html` for a Register anchor when it lands.
+6. ~~The volunteer form~~ — **received and live 17 Sep**, see Email 6.
 7. **The Travel tab name.** We renamed "Mexico City" → "Travel" on our own judgment, because the
    page is a travel guide and the old label read as "about this event" on a site already called
    Wodapalooza Mexico City. Flagged to him as easy to change. Not his request — ours.
