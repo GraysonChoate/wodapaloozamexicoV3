@@ -38,7 +38,7 @@ Currently **608 MB**, most of it video.
 **Deploys are automatic.** Push to `main` and Vercel publishes in about 30–60 seconds. There is
 no deploy command, no CI configuration and nothing to run locally first.
 
-`.vercelignore` holds 69 explicit paths — source clips, superseded derivatives and docs that are
+`.vercelignore` holds 73 explicit paths — source clips, superseded derivatives and docs that are
 kept in git but never uploaded. It uses explicit paths rather than globs on purpose: a glob that
 drifts silently 404s a shot in the film.
 
@@ -66,7 +66,7 @@ It is a static site. Point any host at the repo, or serve the files directly. **
 the host must support HTTP Range requests.** The film scrubs video by seeking, and a server that
 answers a Range request with `200` instead of `206` makes every clip sit frozen on its first
 frame. Vercel, Netlify, Cloudflare Pages and S3+CloudFront all handle this. `python3 -m
-http.server` does not — see the traps below.
+http.server` does not, which is why this repo ships its own dev server — see below.
 
 ---
 
@@ -81,35 +81,54 @@ Settings → General → Danger Zone → Change visibility. Vercel keeps deployi
 
 ---
 
-## Three traps that will cost you a day each
+## Two commands
 
-### 1. Five filenames are cache-poisoned — never reuse them
+Both live in the repo. No dependencies, Node 18+.
+
+### Preview it locally
+
+    node scripts/dev-server.mjs          → http://localhost:8080
+
+**Use this rather than `python3 -m http.server`.** The film scrubs video by seeking, which needs
+HTTP Range: the browser asks for a byte span and the server must answer `206`. Python's
+`http.server` ignores Range and answers `200` with the whole file, so every clip freezes on its
+first frame and the film looks completely broken when nothing is wrong with it. This server
+answers `206`, and prints a one-line command you can run to confirm it.
+
+### Check before you push
+
+    node scripts/check.mjs
+
+A push to `main` publishes, so this is the pre-flight. Exits non-zero and tells you what to do if
+anything is wrong. It checks:
+
+- **retired filenames** — five paths are permanently held back, see below
+- **every local reference resolves** — a missing file is a 404, and for the film a 404 is a
+  missing shot
+- **bilingual pairs balance** — an odd count means a string will not switch language
+- **the nav is identical on all five pages** — each page carries its own copy
+- **nothing the site needs is excluded from the deploy** — `.vercelignore` uses explicit paths,
+  and excluding something a page asks for 404s in production while working fine on localhost
+
+#### The five retired filenames
 
     media/venue/flag.jpg          media/venue/floor.jpg
     media/venue/outdoor.jpg       assets/sponsors/mx-sportsworld.png
     media/loop/s02-crowd-zocalo.mp4
 
-Between 31 August and 3 September, `/media/*` and `/assets/*` were served with
-`Cache-Control: max-age=31536000, immutable`. Files replaced at those paths in that window are
-cached for a year in any browser that loaded them, and `immutable` means the browser never
-re-checks. The server cannot correct it.
+Between 31 August and 3 September 2026 these paths were served with `max-age=31536000,
+immutable`. Browsers that loaded the site in that window hold them for a year and never re-check,
+so putting a new file at one of those paths would show those visitors the old image, and no
+server header can correct it. The replacements ship as `-v2` / `-v3`.
 
-All five now ship as `-v2` / `-v3` names. The policy is now `max-age=3600, must-revalidate`, so
-ordinary replacements are visible again — but **verify any asset swap in a real browser with the
-cache enabled**, loading the page twice. `curl` has no cache and will report success while a
-browser still shows the old file.
+**This does not affect you.** Only browsers that loaded the site in that three-day window are
+carrying those entries, and WZA Sports were not looking at it then. It is listed because the
+check script enforces it, not because you need to remember it — if someone ever reuses one of
+those names, `check.mjs` fails and says why.
 
-### 2. Testing the film needs a Range-capable server
+---
 
-`python3 -m http.server` answers Range requests with `200` instead of `206`. Video seeking then
-fails and **the film looks completely broken when nothing is wrong**. Use `npx serve`, or any
-static server that returns `206`. Verify with:
-
-    curl -s -o /dev/null -w '%{http_code}' -r 0-99 http://localhost:PORT/media/scrub/s08-logo-close.mp4
-
-`206` is correct. `200` means your test server is lying to you.
-
-### 3. The film is finished and approved
+## The film is finished and approved
 
 `index.html` is a scroll performance: video `currentTime` is driven by scroll position, with
 per-beat geometry. It took a long debugging cycle to stop it freezing. Treat its video files,
@@ -119,7 +138,7 @@ Content pages, `css/pages.css` and metadata are ordinary work and safe to edit. 
 is **not** loaded by `index.html`, so it cannot reach the film.
 
 If you do change the film, verify against a pristine copy of the previous commit served the same
-way, and compare: `b13` should scrub to 23 distinct `currentTime` values from 0.181 to 1.003, 35
+way and compare: `b13` should scrub to 23 distinct `currentTime` values from 0.181 to 1.003, 35
 videos with no errors, 32 partner logo slots, and no black frames across the ending.
 
 ---
